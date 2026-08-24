@@ -1,0 +1,3072 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>橙猫猫电竞 · 陪玩店品牌展示</title>
+  <!-- Swiper CSS（CDN）-->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css" />
+  <style>
+    /* ===== 基础重置 ===== */
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    :root {
+      --orange-primary: #FF7A00;
+      --orange-secondary: #F97316;
+      --orange-deep: #D95A00;
+      --orange-light: #FFF1E5;
+      --orange-soft: #FFF8F1;
+      --white: #FFFFFF;
+      --gray-bg: #F7F7F9;
+      --gray-border: #EEF0F4;
+      --text-main: #1A1A1A;
+      --text-sub: #6B6B6B;
+      --shadow-card: 0 0.35rem 1rem rgba(17, 24, 39, 0.06);
+      --shadow-hover: 0 0.8rem 2rem rgba(255, 122, 0, 0.22);
+      --shadow-pop: 0 0.25rem 0.6rem rgba(255, 122, 0, 0.28);
+      --radius: 0.9rem;
+      --radius-lg: 1.25rem;
+      --transition: all 0.3s cubic-bezier(.4,.0,.2,1);
+    }
+
+    html {
+      font-size: clamp(14px, 1.2vw, 16px);
+    }
+
+    body {
+      font-family: "PingFang SC", "Microsoft YaHei", "Helvetica Neue", Arial, sans-serif;
+      color: var(--text-main);
+      line-height: 1.6;
+      min-height: 100vh;
+      position: relative;
+      background:
+        radial-gradient(circle at 10% -5%, rgba(255,122,0,0.16) 0, transparent 42%),
+        radial-gradient(circle at 95% 0%, rgba(249,115,22,0.18) 0, transparent 48%),
+        radial-gradient(circle at 50% 100%, rgba(255,122,0,0.10) 0, transparent 55%),
+        linear-gradient(180deg, #FFFBF7 0%, #FFFFFF 28%, #FAFBFC 100%);
+      overflow-x: hidden;
+    }
+
+    body::before,
+    body::after {
+      content: "";
+      position: fixed;
+      width: 24rem;
+      height: 24rem;
+      border-radius: 50%;
+      filter: blur(5rem);
+      opacity: 0.35;
+      pointer-events: none;
+      z-index: 0;
+    }
+
+    body::before {
+      background: radial-gradient(circle, #FFB368 0%, transparent 70%);
+      top: -6rem;
+      left: -6rem;
+    }
+
+    body::after {
+      background: radial-gradient(circle, #FFD6A8 0%, transparent 70%);
+      bottom: -10rem;
+      right: -8rem;
+    }
+
+    .container, .navbar, .footer {
+      position: relative;
+      z-index: 1;
+    }
+
+    a {
+      text-decoration: none;
+      color: inherit;
+    }
+
+    img {
+      max-width: 100%;
+      display: block;
+    }
+
+    button {
+      font-family: inherit;
+      cursor: pointer;
+      border: none;
+      background: none;
+    }
+
+    /* ===== 顶部导航（浮在海报之上，无白框）===== */
+    .navbar {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 1rem 5vw;
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      z-index: 100;
+    }
+
+    .navbar .logo-wrap {
+      display: flex;
+      align-items: center;
+      gap: 0.6rem;
+    }
+
+    .navbar .logo-wrap img {
+      width: 2.7rem;
+      height: 2.7rem;
+      border-radius: 35%;
+      object-fit: cover;
+      border: 0.14rem solid #fff;
+      box-shadow: 0 0.25rem 0.55rem rgba(255,122,0,0.25);
+      background: linear-gradient(135deg,#FFE4CC,#FFD1A8);
+    }
+
+    .navbar .brand-name {
+      font-size: 1.4rem;
+      font-weight: 800;
+      background: linear-gradient(135deg,#FF7A00 0%, #F97316 60%, #FFB300 100%);
+      -webkit-background-clip: text;
+      background-clip: text;
+      -webkit-text-fill-color: transparent;
+      letter-spacing: 0.04rem;
+      /* 白色描边，确保浮在背景图上可读 */
+      text-shadow:
+        0 0 2px rgba(255,255,255,0.9),
+        0 1px 3px rgba(0,0,0,0.4),
+        0 0 8px rgba(0,0,0,0.3);
+    }
+
+    .navbar .nav-slogan {
+      font-size: 0.88rem;
+      color: #fff;
+      font-weight: 600;
+      padding: 0.3rem 0.85rem;
+      background: rgba(0,0,0,0.3);
+      color: #fff;
+      backdrop-filter: blur(6px);
+      -webkit-backdrop-filter: blur(6px);
+      border: 1px solid rgba(255,255,255,0.25);
+      border-radius: 999px;
+    }
+
+    /* ===== 主容器 ===== */
+    .container {
+      max-width: 1400px;
+      margin: 0 auto;
+      padding: 1.5rem 5vw 3.5rem;
+    }
+
+    /* ===== Hero 标题区 ===== */
+    .hero {
+      position: relative;
+      text-align: center;
+      padding: 2.2rem 0 1.8rem;
+      margin-bottom: 0.5rem;
+    }
+
+    .hero h1 {
+      font-size: clamp(1.8rem, 4vw, 2.9rem);
+      color: var(--text-main);
+      font-weight: 800;
+      margin-bottom: 0.55rem;
+      letter-spacing: 0.02em;
+    }
+
+    .hero h1 span {
+      background: linear-gradient(135deg,#FF7A00 0%, #F97316 50%, #FFB300 100%);
+      -webkit-background-clip: text;
+      background-clip: text;
+      -webkit-text-fill-color: transparent;
+      padding: 0 0.15em;
+    }
+
+    .hero p {
+      font-size: 1rem;
+      color: var(--text-sub);
+      margin-bottom: 1.5rem;
+    }
+
+    .stats {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 0.9rem;
+      max-width: 960px;
+      margin: 0 auto;
+    }
+
+    .stat-card {
+      background: linear-gradient(145deg, #ffffff, #fff7ef);
+      border: 1px solid var(--orange-light);
+      border-radius: var(--radius);
+      padding: 1rem 0.8rem;
+      box-shadow: var(--shadow-card);
+      transition: var(--transition);
+    }
+
+    .stat-card:hover {
+      transform: translateY(-2px);
+      box-shadow: var(--shadow-hover);
+      border-color: var(--orange-primary);
+    }
+
+    .stat-num {
+      font-size: 1.6rem;
+      font-weight: 800;
+      color: var(--orange-primary);
+      margin-bottom: 0.1rem;
+      line-height: 1.1;
+    }
+
+    .stat-label {
+      font-size: 0.8rem;
+      color: var(--text-sub);
+      font-weight: 600;
+    }
+
+    /* 仅保留 2 张统计卡时的居中 */
+    .stats.stats-2 {
+      grid-template-columns: repeat(2, 1fr);
+      max-width: 520px;
+      margin: 1.2rem auto 0;
+    }
+
+    /* ===== Banner 轮播 ===== */
+    .banner-wrap {
+      width: 100%;
+      margin: 0 auto;
+    }
+
+    .banner {
+      position: relative;
+      width: 100%;
+      max-width: 1920px;
+      margin: 0 auto;
+      aspect-ratio: 192 / 50;
+      max-height: 500px;
+      border-radius: var(--radius-lg);
+      overflow: hidden;
+      box-shadow: 0 1rem 2.5rem rgba(255,122,0,0.18), 0 0.3rem 0.8rem rgba(0,0,0,0.06);
+      background: linear-gradient(145deg, #FFF2E1, #FFE4C9);
+      border: 1px solid rgba(255,122,0,0.18);
+    }
+
+    .banner-track {
+      position: absolute;
+      inset: 0;
+      display: flex;
+      width: 100%;
+      height: 100%;
+      transition: transform 0.55s cubic-bezier(.2,.8,.2,1);
+    }
+
+    .banner-slide {
+      flex: 0 0 100%;
+      width: 100%;
+      height: 100%;
+      position: relative;
+      cursor: pointer;
+      overflow: hidden;
+    }
+
+    .banner-slide img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+      transition: transform 0.6s ease;
+    }
+
+    .banner-slide:hover img {
+      transform: scale(1.04);
+    }
+
+    .banner-slide .banner-fallback {
+      position: absolute;
+      inset: 0;
+      display: none;
+      align-items: center;
+      justify-content: center;
+      flex-direction: column;
+      gap: 0.4rem;
+      background: linear-gradient(135deg, #FF7A00 0%, #F97316 45%, #FFB300 100%);
+      color: #fff;
+      font-weight: 700;
+    }
+
+    .banner-slide .banner-fallback-icon {
+      font-size: 3rem;
+      text-shadow: 0 3px 10px rgba(0,0,0,0.2);
+    }
+
+    .banner-slide .banner-fallback-text {
+      font-size: 1.1rem;
+      text-shadow: 0 2px 8px rgba(0,0,0,0.2);
+      padding: 0 1rem;
+      text-align: center;
+    }
+
+    .banner-arrow {
+      position: absolute;
+      top: 50%;
+      transform: translateY(-50%);
+      width: 2.6rem;
+      height: 2.6rem;
+      border-radius: 50%;
+      background: rgba(0,0,0,0.42);
+      color: #fff;
+      font-size: 1.8rem;
+      font-weight: 700;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      line-height: 1;
+      padding-bottom: 0.15rem;
+      transition: var(--transition);
+      z-index: 3;
+      backdrop-filter: blur(4px);
+      border: 1px solid rgba(255,255,255,0.2);
+    }
+
+    .banner-arrow:hover {
+      background: linear-gradient(135deg,#FF7A00,#F97316);
+      box-shadow: 0 6px 18px rgba(255,122,0,0.4);
+      transform: translateY(-50%) scale(1.05);
+    }
+
+    .banner-arrow.banner-prev {
+      left: 0.9rem;
+    }
+
+    .banner-arrow.banner-next {
+      right: 0.9rem;
+    }
+
+    .banner-dots {
+      position: absolute;
+      bottom: 0.9rem;
+      left: 50%;
+      transform: translateX(-50%);
+      display: flex;
+      gap: 0.5rem;
+      z-index: 3;
+      padding: 0.3rem 0.65rem;
+      background: rgba(0,0,0,0.28);
+      backdrop-filter: blur(6px);
+      border-radius: 999px;
+    }
+
+    .banner-dot {
+      width: 0.55rem;
+      height: 0.55rem;
+      border-radius: 50%;
+      background: rgba(255,255,255,0.55);
+      cursor: pointer;
+      transition: var(--transition);
+      border: none;
+      padding: 0;
+    }
+
+    .banner-dot:hover {
+      background: rgba(255,255,255,0.9);
+    }
+
+    .banner-dot.active {
+      background: #fff;
+      box-shadow: 0 0 0 3px rgba(255,122,0,0.35);
+      transform: scale(1.25);
+    }
+
+    @media (max-width: 768px) {
+      .banner {
+        aspect-ratio: 192 / 50;
+        max-height: 500px;
+        border-radius: 1rem;
+      }
+      .banner-arrow {
+        width: 2.1rem;
+        height: 2.1rem;
+        font-size: 1.4rem;
+      }
+      .banner-arrow.banner-prev { left: 0.5rem; }
+      .banner-arrow.banner-next { right: 0.5rem; }
+      .banner-dots {
+        bottom: 0.6rem;
+        padding: 0.25rem 0.5rem;
+        gap: 0.4rem;
+      }
+      .banner-dot {
+        width: 0.45rem;
+        height: 0.45rem;
+      }
+      .banner-slide .banner-fallback-icon { font-size: 2rem; }
+      .banner-slide .banner-fallback-text { font-size: 0.9rem; }
+    }
+
+    /* ===== 筛选区 ===== */
+    .filter-section {
+      margin: 1.8rem 0 2.2rem;
+      background: linear-gradient(180deg, #ffffff, #FFFCF8);
+      border: 1px solid var(--orange-light);
+      border-radius: var(--radius-lg);
+      padding: 1.3rem 1.2rem 1.1rem;
+      box-shadow: var(--shadow-card);
+    }
+
+    .filter-row {
+      display: flex;
+      align-items: center;
+      justify-content: flex-start;
+      gap: 0.6rem;
+      flex-wrap: wrap;
+      margin-bottom: 0.9rem;
+      padding-bottom: 0.9rem;
+      border-bottom: 1px dashed var(--orange-light);
+    }
+
+    .filter-row:last-child {
+      margin-bottom: 0;
+      padding-bottom: 0;
+      border-bottom: none;
+    }
+
+    .filter-label {
+      flex-shrink: 0;
+      font-size: 0.85rem;
+      font-weight: 700;
+      color: var(--orange-primary);
+      padding: 0.35rem 0.65rem;
+      background: var(--orange-light);
+      border-radius: 0.7rem;
+      margin-right: 0.2rem;
+    }
+
+    .tab-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.45rem;
+      padding: 0.55rem 1.15rem;
+      font-size: 0.9rem;
+      font-weight: 600;
+      color: var(--text-main);
+      background: #fff;
+      border-radius: 999px;
+      transition: var(--transition);
+      border: 1.5px solid var(--gray-border);
+      box-shadow: 0 1px 2px rgba(0,0,0,0.03);
+    }
+
+    .tab-btn .tab-logo {
+      width: 1.3rem;
+      height: 1.3rem;
+      border-radius: 50%;
+      object-fit: cover;
+    }
+
+    .tab-btn:hover {
+      transform: translateY(-1px);
+      background: var(--orange-light);
+      color: var(--orange-primary);
+      border-color: var(--orange-primary);
+      box-shadow: var(--shadow-pop);
+    }
+
+    .tab-btn.active {
+      background: linear-gradient(135deg,#FF7A00 0%, #F97316 100%);
+      color: var(--white);
+      border-color: transparent;
+      box-shadow: var(--shadow-pop);
+    }
+
+    .style-chip {
+      padding: 0.42rem 0.95rem;
+      font-size: 0.83rem;
+      font-weight: 600;
+      color: var(--text-main);
+      background: #fff;
+      border-radius: 999px;
+      transition: var(--transition);
+      border: 1.5px solid var(--gray-border);
+      box-shadow: 0 1px 2px rgba(0,0,0,0.03);
+    }
+
+    .style-chip:hover {
+      transform: translateY(-1px);
+      background: var(--orange-soft);
+      color: var(--orange-primary);
+      border-color: var(--orange-primary);
+      box-shadow: 0 2px 6px rgba(255,122,0,0.15);
+    }
+
+    .style-chip.active {
+      background: var(--orange-light);
+      color: var(--orange-primary);
+      border-color: var(--orange-primary);
+      font-weight: 700;
+      box-shadow: 0 2px 6px rgba(255,122,0,0.18);
+    }
+
+    /* ===== 卡片网格 ===== */
+    .cards-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 1.3rem;
+    }
+
+    .card {
+      position: relative;
+      background: #fff;
+      border-radius: var(--radius-lg);
+      box-shadow: var(--shadow-card);
+      overflow: hidden;
+      transition: var(--transition);
+      display: flex;
+      flex-direction: column;
+      border: 1px solid var(--gray-border);
+      animation: cardIn 0.5s cubic-bezier(.2,.7,.2,1) both;
+    }
+
+    @keyframes cardIn {
+      from { opacity: 0; transform: translateY(12px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+
+    .card::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      border-radius: var(--radius-lg);
+      padding: 1.5px;
+      background: linear-gradient(135deg, rgba(255,122,0,0.0), rgba(255,122,0,0.0));
+      -webkit-mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);
+      mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);
+      -webkit-mask-composite: xor;
+      mask-composite: exclude;
+      pointer-events: none;
+      transition: background 0.3s ease;
+      z-index: 5;
+    }
+
+    .card:hover {
+      transform: translateY(-6px);
+      box-shadow: var(--shadow-hover);
+      border-color: transparent;
+    }
+
+    .card:hover::before {
+      background: linear-gradient(135deg, rgba(255,122,0,0.85), rgba(255,179,0,0.7) 55%, rgba(0,194,168,0.55));
+    }
+
+    .card-avatar {
+      width: 100%;
+      aspect-ratio: 1 / 1;
+      background: linear-gradient(145deg, #FFF2E1 0%, #FFE4C9 60%, #FFD1A8 100%);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .card-avatar::after {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(180deg, rgba(0,0,0,0.0) 55%, rgba(0,0,0,0.22) 100%);
+      pointer-events: none;
+      z-index: 1;
+    }
+
+    .card-avatar img.main-avatar {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      transition: transform 0.5s cubic-bezier(.2,.7,.2,1), filter 0.3s ease;
+      z-index: 0;
+    }
+
+    .card:hover .card-avatar img.main-avatar {
+      transform: scale(1.06);
+      filter: saturate(1.15);
+    }
+
+    .card-avatar .avatar-fallback {
+      width: 100%;
+      height: 100%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: linear-gradient(135deg, var(--orange-primary), #FFB300 60%, var(--orange-secondary));
+      color: var(--white);
+      font-size: 2.4rem;
+      font-weight: 800;
+      text-shadow: 0 2px 6px rgba(0,0,0,0.25);
+      z-index: 0;
+    }
+
+    /* 头像左上角游戏 logo 堆叠 */
+    .game-logos {
+      position: absolute;
+      top: 0.6rem;
+      left: 0.6rem;
+      display: flex;
+      align-items: center;
+      z-index: 3;
+    }
+
+    .game-logos .game-logo-item {
+      width: 1.7rem;
+      height: 1.7rem;
+      border-radius: 50%;
+      border: 0.14rem solid #fff;
+      background: #fff;
+      object-fit: cover;
+      margin-left: -0.5rem;
+      box-shadow: 0 3px 8px rgba(0, 0, 0, 0.25);
+    }
+
+    .game-logos .game-logo-item:first-child {
+      margin-left: 0;
+    }
+
+    .card-body {
+      padding: 1rem 0.95rem 1rem;
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      gap: 0.45rem;
+    }
+
+    .card-name {
+      font-size: 1.1rem;
+      font-weight: 800;
+      color: var(--text-main);
+    }
+
+    .card-orders {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.32rem;
+    }
+
+    .card-orders .order-tag {
+      font-size: 0.7rem;
+      padding: 0.22rem 0.55rem;
+      background: linear-gradient(135deg, #FF7A00 0%, #F97316 100%);
+      color: #fff;
+      border-radius: 999px;
+      font-weight: 700;
+      box-shadow: 0 2px 5px rgba(255,122,0,0.2);
+      letter-spacing: 0.01em;
+    }
+
+    .card-signature {
+      font-size: 0.85rem;
+      color: var(--text-sub);
+      line-height: 1.55;
+      padding: 0.2rem 0 0.3rem;
+      flex: 1;
+      display: -webkit-box;
+      -webkit-line-clamp: 2;
+      -webkit-box-orient: vertical;
+      overflow: hidden;
+    }
+
+    .card-time {
+      font-size: 0.78rem;
+      color: #C75B00;
+      font-weight: 600;
+      padding: 0.15rem 0 0.4rem;
+      letter-spacing: 0.02em;
+    }
+
+    .card-styles {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.32rem;
+      padding: 0.55rem 0.55rem;
+      background: linear-gradient(135deg, #FFFBF6, #FFF3E6);
+      border-radius: 0.75rem;
+      border: 1px dashed rgba(255,122,0,0.22);
+    }
+
+    .card-styles .style-tag {
+      font-size: 0.7rem;
+      padding: 0.16rem 0.5rem;
+      background: #fff;
+      color: var(--orange-deep);
+      border-radius: 999px;
+      font-weight: 700;
+      border: 1px solid rgba(255,122,0,0.2);
+    }
+
+    /* 卡片右上角特殊徽章容器（等级 + 全能）*/
+    .card-badges {
+      position: absolute;
+      top: 0.6rem;
+      right: 0.6rem;
+      display: flex;
+      flex-direction: column;
+      align-items: flex-end;
+      gap: 0.35rem;
+      z-index: 4;
+    }
+
+    .tier-badge {
+      font-size: 0.7rem;
+      font-weight: 800;
+      padding: 0.22rem 0.6rem;
+      border-radius: 999px;
+      box-shadow: 0 3px 8px rgba(0,0,0,0.3);
+      letter-spacing: 0.05em;
+      white-space: nowrap;
+      border: 1px solid rgba(255,255,255,0.45);
+      backdrop-filter: blur(4px);
+    }
+
+    .omni-badge {
+      font-size: 0.68rem;
+      font-weight: 800;
+      padding: 0.22rem 0.55rem;
+      border-radius: 999px;
+      background: linear-gradient(135deg,#00C2A8,#0095FF 60%, #6B5BFF);
+      color: #fff;
+      box-shadow: 0 3px 8px rgba(0,122,200,0.35);
+      letter-spacing: 0.05em;
+      white-space: nowrap;
+      border: 1px solid rgba(255,255,255,0.45);
+    }
+
+    .card-actions {
+      display: flex;
+      gap: 0.5rem;
+      margin-top: 0.15rem;
+    }
+
+    .btn {
+      flex: 1;
+      padding: 0.58rem 0.4rem;
+      font-size: 0.85rem;
+      font-weight: 700;
+      border-radius: 0.7rem;
+      transition: var(--transition);
+      text-align: center;
+      display: inline-block;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .btn::after {
+      content: "";
+      position: absolute;
+      top: 0; left: -100%;
+      width: 100%; height: 100%;
+      background: linear-gradient(120deg, transparent 30%, rgba(255,255,255,0.35) 50%, transparent 70%);
+      transition: left 0.5s ease;
+    }
+
+    .btn:hover::after {
+      left: 100%;
+    }
+
+    .btn-detail {
+      background: #fff;
+      color: var(--orange-primary);
+      border: 1.5px solid var(--orange-primary);
+    }
+
+    .btn-detail:hover {
+      background: var(--orange-light);
+      transform: translateY(-1px);
+      box-shadow: 0 4px 10px rgba(255,122,0,0.2);
+    }
+
+    .btn-book {
+      background: linear-gradient(135deg,#FF7A00 0%, #F97316 60%, #FFB300 100%);
+      color: #fff;
+      border: 1.5px solid transparent;
+      box-shadow: 0 4px 10px rgba(255,122,0,0.25);
+    }
+
+    .btn-book:hover {
+      transform: translateY(-1px);
+      box-shadow: 0 6px 16px rgba(255,122,0,0.38);
+      filter: saturate(1.1);
+    }
+
+    /* 空状态 */
+    .empty-state {
+      grid-column: 1 / -1;
+      text-align: center;
+      padding: 3.5rem 1rem;
+      color: var(--text-sub);
+      font-size: 1rem;
+      background: linear-gradient(180deg, #fff, #FFFCF8);
+      border: 1px dashed rgba(255,122,0,0.25);
+      border-radius: var(--radius-lg);
+    }
+
+    /* ===== 模态框 ===== */
+    .modal-overlay {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(12, 16, 22, 0.62);
+      backdrop-filter: blur(6px);
+      -webkit-backdrop-filter: blur(6px);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      z-index: 1000;
+      opacity: 0;
+      visibility: hidden;
+      transition: opacity 0.3s ease, visibility 0.3s ease;
+      padding: 1rem;
+    }
+
+    .modal-overlay.show {
+      opacity: 1;
+      visibility: visible;
+    }
+
+    .modal {
+      background: #fff;
+      border-radius: var(--radius-lg);
+      width: 100%;
+      max-width: 34rem;
+      max-height: 92vh;
+      overflow-y: auto;
+      position: relative;
+      transform: translateY(1.2rem) scale(0.98);
+      transition: transform 0.35s cubic-bezier(.2,.8,.2,1);
+      box-shadow: 0 2rem 4rem rgba(0,0,0,0.25);
+    }
+
+    .modal-overlay.show .modal {
+      transform: translateY(0) scale(1);
+    }
+
+    .modal::-webkit-scrollbar {
+      width: 6px;
+    }
+    .modal::-webkit-scrollbar-thumb {
+      background: rgba(255,122,0,0.4);
+      border-radius: 4px;
+    }
+
+    .modal-close {
+      position: absolute;
+      top: 0.7rem;
+      right: 0.7rem;
+      width: 2.2rem;
+      height: 2.2rem;
+      border-radius: 50%;
+      background: rgba(0, 0, 0, 0.55);
+      color: var(--white);
+      font-size: 1.2rem;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: var(--transition);
+      z-index: 4;
+      border: 1px solid rgba(255,255,255,0.2);
+    }
+
+    .modal-close:hover {
+      background: linear-gradient(135deg,#FF7A00, #F97316);
+      transform: rotate(90deg);
+    }
+
+    .modal-banner {
+      width: 100%;
+      aspect-ratio: 16 / 9;
+      background: linear-gradient(135deg, #FF7A00 0%, #F97316 40%, #FFB300 100%);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: var(--white);
+      font-size: 2.8rem;
+      font-weight: 800;
+      overflow: hidden;
+      position: relative;
+      text-shadow: 0 4px 12px rgba(0,0,0,0.25);
+    }
+
+    .modal-banner::after {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(180deg, rgba(0,0,0,0.0) 55%, rgba(0,0,0,0.32) 100%);
+      pointer-events: none;
+      z-index: 1;
+    }
+
+    .modal-banner img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      z-index: 0;
+    }
+
+    .modal-banner .banner-game-logos {
+      position: absolute;
+      bottom: 0.8rem;
+      left: 0.8rem;
+      display: flex;
+      gap: 0.35rem;
+      z-index: 3;
+    }
+
+    .modal-banner .banner-game-logos img {
+      width: 2rem;
+      height: 2rem;
+      border-radius: 50%;
+      border: 0.15rem solid var(--white);
+      object-fit: cover;
+      background: var(--white);
+      box-shadow: 0 3px 8px rgba(0,0,0,0.3);
+    }
+
+    .modal-body {
+      padding: 1.4rem 1.3rem 1.4rem;
+    }
+
+    .modal-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 0.7rem;
+      flex-wrap: wrap;
+      gap: 0.55rem;
+    }
+
+    .modal-name {
+      font-size: 1.45rem;
+      font-weight: 800;
+      background: linear-gradient(135deg, #1A1A1A 0%, #FF7A00 100%);
+      -webkit-background-clip: text;
+      background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+
+    .modal-badges {
+      display: flex;
+      gap: 0.4rem;
+      flex-wrap: wrap;
+      justify-content: flex-end;
+    }
+
+    .modal-badges .tier-badge {
+      font-size: 0.88rem;
+      padding: 0.3rem 0.8rem;
+    }
+
+    .modal-badges .omni-badge {
+      font-size: 0.85rem;
+      padding: 0.3rem 0.75rem;
+    }
+
+    .modal-styles {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.35rem;
+      margin-bottom: 0.9rem;
+      padding: 0.65rem;
+      background: linear-gradient(135deg, #FFFBF6, #FFF3E6);
+      border-radius: 0.8rem;
+      border: 1px dashed rgba(255,122,0,0.22);
+    }
+
+    .modal-styles .style-tag {
+      font-size: 0.78rem;
+      padding: 0.22rem 0.65rem;
+      background: #fff;
+      color: var(--orange-deep);
+      border-radius: 999px;
+      font-weight: 700;
+      border: 1px solid rgba(255,122,0,0.22);
+    }
+
+    /* 弹窗可接订单标签 */
+    .modal-orders {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.4rem;
+    }
+
+    .modal-orders .order-tag {
+      font-size: 0.82rem;
+      padding: 0.28rem 0.8rem;
+      background: linear-gradient(135deg, #FF7A00 0%, #F97316 100%);
+      color: #fff;
+      border-radius: 999px;
+      font-weight: 700;
+      box-shadow: 0 2px 6px rgba(255,122,0,0.22);
+    }
+
+    .modal-time {
+      font-size: 0.95rem;
+      font-weight: 700;
+      color: #C75B00;
+      background: linear-gradient(135deg, #FFF7EE, #FFEAD6);
+      border: 1px dashed rgba(255,122,0,0.45);
+      border-radius: 0.7rem;
+      padding: 0.6rem 0.9rem;
+      letter-spacing: 0.02em;
+    }
+
+    .modal-section-title {
+      font-size: 0.98rem;
+      font-weight: 800;
+      color: var(--text-main);
+      margin: 1.1rem 0 0.55rem;
+      padding-left: 0.6rem;
+      border-left: 0.25rem solid var(--orange-primary);
+      display: flex;
+      align-items: center;
+      gap: 0.4rem;
+    }
+
+    .modal-section-title::before {
+      content: "";
+      display: inline-block;
+      width: 0.25rem;
+      height: 0.85rem;
+      background: linear-gradient(180deg, #FFB300, #FF7A00);
+      border-radius: 0.2rem;
+      margin-right: -0.85rem;
+      opacity: 0;
+    }
+
+    .modal-games {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.55rem;
+    }
+
+    .modal-games .game-pill {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.4rem;
+      padding: 0.35rem 0.8rem;
+      background: linear-gradient(135deg, #fff, #FFF4E6);
+      border-radius: 999px;
+      font-size: 0.85rem;
+      font-weight: 700;
+      color: var(--text-main);
+      border: 1px solid rgba(255,122,0,0.18);
+      box-shadow: 0 1px 3px rgba(0,0,0,0.04);
+    }
+
+    .modal-games .game-pill img {
+      width: 1.15rem;
+      height: 1.15rem;
+      border-radius: 50%;
+      object-fit: cover;
+    }
+
+    .modal-desc {
+      font-size: 0.9rem;
+      color: var(--text-sub);
+      line-height: 1.8;
+      padding: 0.75rem 0.85rem;
+      background: linear-gradient(180deg, #FAFBFC, #F6F7F9);
+      border-radius: 0.8rem;
+      border: 1px solid var(--gray-border);
+    }
+
+    .audio-wrap {
+      margin-top: 0.5rem;
+      padding: 0.75rem;
+      background: linear-gradient(135deg, #FFF5EC, #FFEAD6);
+      border-radius: 0.8rem;
+      border: 1px solid rgba(255,122,0,0.18);
+    }
+
+    .audio-wrap-title {
+      font-size: 0.8rem;
+      font-weight: 700;
+      color: var(--orange-primary);
+      margin-bottom: 0.4rem;
+    }
+
+    .audio-player {
+      width: 100%;
+      height: 2.4rem;
+    }
+
+    .audio-player::-webkit-media-controls-panel {
+      background: #fff;
+    }
+
+    .modal-book-btn {
+      display: block;
+      width: 100%;
+      padding: 0.85rem;
+      margin-top: 1.4rem;
+      background: linear-gradient(135deg,#FF7A00 0%, #F97316 50%, #FFB300 100%);
+      color: #fff;
+      font-size: 1rem;
+      font-weight: 800;
+      border-radius: 0.8rem;
+      text-align: center;
+      transition: var(--transition);
+      box-shadow: 0 6px 16px rgba(255,122,0,0.32);
+      letter-spacing: 0.05em;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .modal-book-btn::after {
+      content: "";
+      position: absolute;
+      top: 0; left: -100%;
+      width: 100%; height: 100%;
+      background: linear-gradient(120deg, transparent 30%, rgba(255,255,255,0.35) 50%, transparent 70%);
+      transition: left 0.55s ease;
+    }
+
+    .modal-book-btn:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 10px 22px rgba(255,122,0,0.42);
+      filter: saturate(1.1);
+    }
+
+    .modal-book-btn:hover::after {
+      left: 100%;
+    }
+
+    /* ===== 返回顶部 ===== */
+    .back-to-top {
+      position: fixed;
+      bottom: 1.4rem;
+      right: 1.4rem;
+      width: 2.7rem;
+      height: 2.7rem;
+      border-radius: 50%;
+      background: linear-gradient(135deg,#FF7A00, #F97316);
+      color: #fff;
+      font-size: 1.1rem;
+      font-weight: 800;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      box-shadow: 0 6px 18px rgba(255,122,0,0.35);
+      z-index: 90;
+      opacity: 0;
+      visibility: hidden;
+      transform: translateY(10px);
+      transition: var(--transition);
+      border: 1.5px solid #fff;
+    }
+
+    .back-to-top.show {
+      opacity: 1;
+      visibility: visible;
+      transform: translateY(0);
+    }
+
+    .back-to-top:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 10px 24px rgba(255,122,0,0.48);
+      filter: saturate(1.1);
+    }
+
+    /* ===== 客服二维码弹窗 ===== */
+    .qrcode-modal {
+      background: #fff;
+      border-radius: var(--radius-lg);
+      width: 100%;
+      max-width: 22rem;
+      padding: 1.6rem 1.4rem 1.5rem;
+      position: relative;
+      box-shadow: 0 2rem 4rem rgba(0,0,0,0.3);
+      transform: translateY(1.2rem) scale(0.95);
+      transition: transform 0.35s cubic-bezier(.2,.8,.2,1);
+      text-align: center;
+    }
+
+    .modal-overlay.show .qrcode-modal {
+      transform: translateY(0) scale(1);
+    }
+
+    .qrcode-modal .modal-close {
+      top: 0.6rem;
+      right: 0.6rem;
+      width: 2rem;
+      height: 2rem;
+      font-size: 1.05rem;
+    }
+
+    .qrcode-title {
+      font-size: 1.25rem;
+      font-weight: 800;
+      background: linear-gradient(135deg, #FF7A00, #F97316 60%, #FFB300);
+      -webkit-background-clip: text;
+      background-clip: text;
+      -webkit-text-fill-color: transparent;
+      margin-bottom: 1rem;
+      letter-spacing: 0.03em;
+    }
+
+    .qrcode-img-wrap {
+      width: 16rem;
+      max-width: 100%;
+      aspect-ratio: 1 / 1;
+      margin: 0 auto 0.85rem;
+      background: linear-gradient(145deg, #FFF6EC, #FFEAD6);
+      border-radius: 1rem;
+      border: 1px solid rgba(255,122,0,0.18);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      overflow: hidden;
+      box-shadow: inset 0 0 0 1px rgba(255,255,255,0.6), 0 6px 18px rgba(255,122,0,0.12);
+    }
+
+    .qrcode-img-wrap img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+    }
+
+    .qrcode-fallback {
+      display: none;
+      flex-direction: column;
+      align-items: center;
+      gap: 0.4rem;
+      color: var(--text-sub);
+      font-size: 0.9rem;
+      font-weight: 600;
+      padding: 1rem;
+    }
+
+    .qrcode-fallback-icon {
+      font-size: 2.4rem;
+    }
+
+    .qrcode-fallback-sub {
+      font-size: 0.78rem;
+      color: #A1A1A1;
+      font-weight: 500;
+    }
+
+    .qrcode-shift {
+      font-size: 0.95rem;
+      font-weight: 700;
+      color: var(--orange-primary);
+      margin-bottom: 0.4rem;
+    }
+
+    .qrcode-tip {
+      font-size: 0.8rem;
+      color: var(--text-sub);
+      line-height: 1.5;
+    }
+
+    @media (max-width: 768px) {
+      .qrcode-modal {
+        max-width: 100%;
+        padding: 1.4rem 1.2rem 1.3rem;
+      }
+      .qrcode-img-wrap {
+        width: 14rem;
+      }
+    }
+
+    /* ===== 预约话术弹窗 ===== */
+    .booking-modal {
+      background: #fff;
+      border-radius: var(--radius-lg);
+      width: 100%;
+      max-width: 26rem;
+      padding: 1.7rem 1.5rem 1.4rem;
+      position: relative;
+      box-shadow: 0 2rem 4rem rgba(0,0,0,0.3);
+      transform: translateY(1rem) scale(0.95);
+      transition: transform 0.35s cubic-bezier(.2,.8,.2,1);
+      text-align: center;
+    }
+
+    .modal-overlay.show .booking-modal {
+      transform: translateY(0) scale(1);
+    }
+
+    .booking-modal .modal-close {
+      top: 0.6rem;
+      right: 0.6rem;
+      width: 2rem;
+      height: 2rem;
+      font-size: 1.05rem;
+    }
+
+    .booking-title {
+      font-size: 1.3rem;
+      font-weight: 800;
+      background: linear-gradient(135deg, #FF7A00, #F97316 60%, #FFB300);
+      -webkit-background-clip: text;
+      background-clip: text;
+      -webkit-text-fill-color: transparent;
+      margin-bottom: 0.25rem;
+      letter-spacing: 0.02em;
+    }
+
+    .booking-title span {
+      color: inherit;
+    }
+
+    .booking-subtitle {
+      font-size: 0.85rem;
+      color: var(--text-sub);
+      margin-bottom: 1.1rem;
+    }
+
+    .booking-message {
+      background: linear-gradient(135deg, #FFF7EE, #FFEAD6);
+      border: 1px dashed rgba(255,122,0,0.5);
+      border-radius: 0.85rem;
+      padding: 1rem 1.1rem;
+      font-size: 1.05rem;
+      font-weight: 600;
+      color: #1A1A1A;
+      line-height: 1.6;
+      margin-bottom: 1.2rem;
+      word-break: break-all;
+      box-shadow: inset 0 0 0 1px rgba(255,255,255,0.6);
+    }
+
+    .btn-copy {
+      width: 100%;
+      padding: 0.85rem 1rem;
+      font-size: 1.05rem;
+      font-weight: 700;
+      margin-bottom: 0.7rem;
+    }
+
+    .btn-copy:disabled {
+      opacity: 0.7;
+      cursor: not-allowed;
+      filter: grayscale(0.2);
+    }
+
+    .booking-tip {
+      font-size: 0.78rem;
+      color: var(--text-sub);
+      line-height: 1.5;
+    }
+
+    @media (max-width: 768px) {
+      .booking-modal {
+        max-width: 100%;
+        padding: 1.5rem 1.25rem 1.2rem;
+      }
+      .booking-title { font-size: 1.15rem; }
+      .booking-message { font-size: 0.95rem; padding: 0.85rem 0.95rem; }
+      .btn-copy { padding: 0.75rem 0.9rem; font-size: 0.95rem; }
+    }
+
+    /* ===== 响应式：手机端 ===== */
+    @media (max-width: 768px) {
+      .cards-grid {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 0.8rem;
+      }
+
+      .navbar {
+        padding: 0.7rem 4vw;
+      }
+
+      .navbar .brand-name {
+        font-size: 1.15rem;
+      }
+
+      .nav-slogan {
+        display: none;
+      }
+
+      .hero {
+        padding: 1.6rem 0 1.4rem;
+      }
+
+      .stats {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 0.6rem;
+      }
+
+      .stat-num {
+        font-size: 1.35rem;
+      }
+
+      .container {
+        padding: 1rem 4vw 2.5rem;
+      }
+
+      .filter-section {
+        padding: 1rem 0.9rem 0.85rem;
+      }
+
+      .filter-row {
+        margin-bottom: 0.7rem;
+        padding-bottom: 0.7rem;
+      }
+
+      .card-body {
+        padding: 0.75rem 0.7rem 0.8rem;
+        gap: 0.35rem;
+      }
+
+      .card-name {
+        font-size: 1rem;
+      }
+
+      .card-signature {
+        font-size: 0.78rem;
+        padding: 0.15rem 0 0.2rem;
+      }
+
+      .card-styles {
+        padding: 0.42rem 0.45rem;
+      }
+
+      .card-styles .style-tag,
+      .card-orders .order-tag {
+        font-size: 0.65rem;
+      }
+
+      .btn {
+        font-size: 0.78rem;
+        padding: 0.5rem 0.25rem;
+      }
+
+      .tier-badge, .omni-badge {
+        font-size: 0.62rem;
+        padding: 0.18rem 0.48rem;
+      }
+
+      .tab-btn {
+        padding: 0.45rem 0.9rem;
+        font-size: 0.82rem;
+      }
+
+      .tab-btn .tab-logo {
+        width: 1rem;
+        height: 1rem;
+      }
+
+      .style-chip {
+        padding: 0.35rem 0.75rem;
+        font-size: 0.75rem;
+      }
+
+      .filter-label {
+        font-size: 0.75rem;
+        padding: 0.3rem 0.55rem;
+      }
+
+      .modal {
+        max-width: 100%;
+      }
+
+      .back-to-top {
+        width: 2.4rem;
+        height: 2.4rem;
+        bottom: 1rem;
+        right: 1rem;
+      }
+    }
+
+    /* 超小屏适配 */
+    @media (max-width: 360px) {
+      .cards-grid {
+        gap: 0.55rem;
+      }
+      .filter-label {
+        display: none;
+      }
+    }
+
+    /* ===== 页脚 ===== */
+    .footer {
+      position: relative;
+      z-index: 1;
+      text-align: center;
+      padding: 2rem 1.2rem 2.5rem;
+      color: var(--text-sub);
+      font-size: 0.82rem;
+      background:
+        radial-gradient(circle at 50% 0%, rgba(255,122,0,0.08) 0%, transparent 60%),
+        linear-gradient(180deg, transparent 0%, #FFF6EC 100%);
+      border-top: 1px solid rgba(255,122,0,0.12);
+    }
+
+    .footer .footer-inner {
+      max-width: 1400px;
+      margin: 0 auto;
+    }
+
+    .footer .brand-logo {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      margin-bottom: 0.5rem;
+    }
+
+    .footer .brand-logo img {
+      width: 1.8rem;
+      height: 1.8rem;
+      border-radius: 35%;
+      border: 0.1rem solid #fff;
+      box-shadow: 0 2px 6px rgba(255,122,0,0.25);
+      background: linear-gradient(135deg,#FFE4CC,#FFD1A8);
+    }
+
+    .footer .brand-logo span {
+      font-size: 1.1rem;
+      font-weight: 800;
+      background: linear-gradient(135deg,#FF7A00, #F97316 60%, #FFB300);
+      -webkit-background-clip: text;
+      background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+
+    .footer p {
+      margin-bottom: 0.25rem;
+    }
+
+    .footer .copyright {
+      color: #A1A1A1;
+      font-size: 0.75rem;
+      margin-top: 0.5rem;
+    }
+
+    .footer span {
+      color: var(--orange-primary);
+      font-weight: 700;
+    }
+
+    /* ===== 全屏滑动 PPT（Swiper）===== */
+    :root {
+      /* 蒙层渐变颜色（方便后续调色）：
+         --c1 底部颜色，--c2 顶部颜色 */
+      --c1: rgba(0, 0, 0, 0.92);
+      --c2: rgba(0, 0, 0, 0.10);
+    }
+
+    html, body {
+      height: 100%;
+    }
+
+    /* 隐藏原容器内的旧 hero/stats/filter/cards-grid（已删除，无需样式） */
+
+    .swiper.main-swiper {
+      width: 100vw;
+      height: 100vh; /* 全屏，导航栏浮于其上 */
+      min-height: 30rem;
+      position: relative;
+      z-index: 1;
+    }
+
+    .swiper.main-swiper .swiper-slide {
+      position: relative;
+      overflow: hidden;
+      background: #1a1a1a;
+    }
+
+    /* 背景图 */
+    .slide-bg {
+      position: absolute;
+      inset: 0;
+      background-size: cover;
+      background-position: center;
+      background-repeat: no-repeat;
+      transform: scale(1.04);
+      transition: transform 1.2s ease;
+      z-index: 0;
+    }
+
+    .swiper-slide-active .slide-bg {
+      transform: scale(1);
+    }
+
+    /* 从底部到顶部的黑色渐变蒙层 */
+    .slide-overlay {
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(to top, var(--c1) 0%, var(--c2) 100%);
+      z-index: 1;
+      pointer-events: none;
+    }
+
+    /* slide 内容容器：从下往上排列 */
+    .slide-content {
+      position: absolute;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      padding: 2rem 6vw 4.5rem;
+      z-index: 2;
+      color: #fff;
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+
+    .slide-title-wrap {
+      margin-bottom: 1.2rem;
+    }
+
+    .slide-title-cn {
+      font-size: clamp(2rem, 5vw, 3.4rem);
+      font-weight: 900;
+      letter-spacing: 0.06em;
+      text-shadow: 0 4px 18px rgba(0,0,0,0.6);
+      background: linear-gradient(135deg, #ffffff 0%, #FFD9A8 60%, #FF7A00 100%);
+      -webkit-background-clip: text;
+      background-clip: text;
+      -webkit-text-fill-color: transparent;
+      margin-bottom: 0.3rem;
+      line-height: 1.1;
+    }
+
+    .slide-title-en {
+      font-size: clamp(0.85rem, 1.4vw, 1.1rem);
+      font-weight: 600;
+      letter-spacing: 0.3em;
+      color: rgba(255, 200, 130, 0.9);
+      text-transform: uppercase;
+      text-shadow: 0 2px 8px rgba(0,0,0,0.5);
+    }
+
+    /* 价格列表 */
+    .price-list {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+      gap: 0.7rem;
+      margin-bottom: 1.4rem;
+      max-width: 880px;
+    }
+
+    .price-item {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 0.6rem;
+      padding: 0.7rem 1rem;
+      background: rgba(255, 255, 255, 0.12);
+      backdrop-filter: blur(10px);
+      -webkit-backdrop-filter: blur(10px);
+      border: 1px solid rgba(255, 255, 255, 0.22);
+      border-radius: 0.75rem;
+      box-shadow: 0 4px 14px rgba(0,0,0,0.25);
+      transition: var(--transition);
+      cursor: pointer;
+      position: relative;
+    }
+
+    .price-item:hover {
+      background: rgba(255, 122, 0, 0.25);
+      border-color: rgba(255, 200, 130, 0.6);
+      transform: translateY(-2px);
+    }
+
+    .price-item::after {
+      content: "›";
+      font-size: 1.3rem;
+      font-weight: 800;
+      color: #FFB870;
+      margin-left: 0.2rem;
+      transition: transform 0.3s ease;
+    }
+
+    .price-item:hover::after {
+      transform: translateX(3px);
+    }
+
+    /* ===== 价格详情模态框 ===== */
+    .price-modal {
+      background: #fff;
+      border-radius: var(--radius-lg);
+      width: 100%;
+      max-width: 32rem;
+      max-height: 90vh;
+      overflow-y: auto;
+      position: relative;
+      transform: translateY(1.2rem) scale(0.98);
+      transition: transform 0.35s cubic-bezier(.2,.8,.2,1);
+      box-shadow: 0 2rem 4rem rgba(0,0,0,0.3);
+    }
+
+    .modal-overlay.show .price-modal {
+      transform: translateY(0) scale(1);
+    }
+
+    .price-modal .modal-close {
+      top: 0.7rem;
+      right: 0.7rem;
+      width: 2.2rem;
+      height: 2.2rem;
+      font-size: 1.2rem;
+    }
+
+    .price-modal-header {
+      padding: 1.6rem 1.4rem 1.1rem;
+      background: linear-gradient(135deg, #FF7A00 0%, #F97316 60%, #FFB300 100%);
+      color: #fff;
+      border-radius: var(--radius-lg) var(--radius-lg) 0 0;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .price-modal-header::after {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(180deg, rgba(0,0,0,0) 55%, rgba(0,0,0,0.18) 100%);
+      pointer-events: none;
+    }
+
+    .price-modal-game {
+      font-size: 0.78rem;
+      font-weight: 700;
+      letter-spacing: 0.1em;
+      opacity: 0.92;
+      margin-bottom: 0.25rem;
+      text-transform: uppercase;
+    }
+
+    .price-modal-name {
+      font-size: 1.6rem;
+      font-weight: 900;
+      letter-spacing: 0.03em;
+      margin-bottom: 0.35rem;
+      text-shadow: 0 2px 8px rgba(0,0,0,0.2);
+    }
+
+    .price-modal-price {
+      display: inline-flex;
+      align-items: baseline;
+      gap: 0.15rem;
+      font-size: 1.15rem;
+      font-weight: 800;
+      background: rgba(255,255,255,0.22);
+      padding: 0.3rem 0.85rem;
+      border-radius: 999px;
+      backdrop-filter: blur(6px);
+      -webkit-backdrop-filter: blur(6px);
+      border: 1px solid rgba(255,255,255,0.35);
+    }
+
+    .price-modal-body {
+      padding: 1.3rem 1.4rem 1.5rem;
+    }
+
+    .price-section-title {
+      font-size: 0.95rem;
+      font-weight: 800;
+      color: var(--text-main);
+      margin: 0 0 0.6rem;
+      padding-left: 0.6rem;
+      border-left: 0.25rem solid var(--orange-primary);
+      display: flex;
+      align-items: center;
+      gap: 0.4rem;
+    }
+
+    .price-section-title:first-child {
+      margin-top: 0;
+    }
+
+    .price-section-title + .price-section-title {
+      margin-top: 1.2rem;
+    }
+
+    .price-detail-list {
+      list-style: none;
+      padding: 0;
+      margin: 0;
+      display: flex;
+      flex-direction: column;
+      gap: 0.5rem;
+    }
+
+    .price-detail-list li {
+      font-size: 0.9rem;
+      color: var(--text-sub);
+      line-height: 1.65;
+      padding: 0.55rem 0.75rem 0.55rem 1.7rem;
+      background: linear-gradient(135deg, #FFFBF6, #FFF3E6);
+      border-radius: 0.6rem;
+      border: 1px solid rgba(255,122,0,0.12);
+      position: relative;
+    }
+
+    .price-detail-list li::before {
+      content: "✓";
+      position: absolute;
+      left: 0.55rem;
+      top: 0.55rem;
+      color: var(--orange-primary);
+      font-weight: 800;
+      font-size: 0.85rem;
+    }
+
+    .price-notice-list {
+      list-style: none;
+      padding: 0;
+      margin: 0;
+      display: flex;
+      flex-direction: column;
+      gap: 0.5rem;
+    }
+
+    .price-notice-list li {
+      font-size: 0.88rem;
+      color: var(--text-sub);
+      line-height: 1.65;
+      padding: 0.55rem 0.75rem 0.55rem 1.7rem;
+      background: linear-gradient(135deg, #FFF5F5, #FFEEEE);
+      border-radius: 0.6rem;
+      border: 1px solid rgba(220,38,38,0.15);
+      position: relative;
+    }
+
+    .price-notice-list li::before {
+      content: "!";
+      position: absolute;
+      left: 0.55rem;
+      top: 0.5rem;
+      width: 1rem;
+      height: 1rem;
+      border-radius: 50%;
+      background: #DC2626;
+      color: #fff;
+      font-weight: 800;
+      font-size: 0.7rem;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      line-height: 1;
+    }
+
+    .price-modal-actions {
+      display: flex;
+      gap: 0.6rem;
+      margin-top: 1.4rem;
+    }
+
+    .price-modal-actions .btn {
+      flex: 1;
+      padding: 0.75rem 0.5rem;
+      font-size: 0.9rem;
+    }
+
+    @media (max-width: 768px) {
+      .price-modal {
+        max-width: 100%;
+      }
+      .price-modal-name { font-size: 1.4rem; }
+      .price-modal-actions {
+        flex-direction: column;
+      }
+    }
+
+    .price-item-name {
+      font-size: 0.95rem;
+      font-weight: 700;
+      color: #fff;
+      letter-spacing: 0.02em;
+    }
+
+    .price-item-price {
+      font-size: 1rem;
+      font-weight: 800;
+      color: #FFB870;
+      white-space: nowrap;
+      letter-spacing: 0.02em;
+    }
+
+    /* 操作按钮区 */
+    .slide-actions {
+      display: flex;
+      gap: 0.9rem;
+      flex-wrap: wrap;
+    }
+
+    .slide-btn {
+      padding: 0.85rem 1.6rem;
+      font-size: 1rem;
+      font-weight: 800;
+      border-radius: 999px;
+      transition: var(--transition);
+      letter-spacing: 0.05em;
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      border: 1.5px solid transparent;
+      cursor: pointer;
+    }
+
+    .slide-btn-contact {
+      background: rgba(255, 255, 255, 0.18);
+      color: #fff;
+      border-color: rgba(255, 255, 255, 0.5);
+      backdrop-filter: blur(8px);
+      -webkit-backdrop-filter: blur(8px);
+    }
+
+    .slide-btn-contact:hover {
+      background: #fff;
+      color: var(--orange-primary);
+      transform: translateY(-2px);
+      box-shadow: 0 8px 20px rgba(0,0,0,0.3);
+    }
+
+    .slide-btn-pick {
+      background: linear-gradient(135deg, #FF7A00 0%, #F97316 60%, #FFB300 100%);
+      color: #fff;
+      box-shadow: 0 6px 18px rgba(255,122,0,0.5);
+    }
+
+    .slide-btn-pick:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 10px 24px rgba(255,122,0,0.65);
+      filter: saturate(1.15);
+    }
+
+    /* 分页器（圆点）样式 */
+    .main-swiper .swiper-pagination-bullet {
+      width: 0.7rem;
+      height: 0.7rem;
+      background: rgba(255,255,255,0.5);
+      opacity: 1;
+      transition: all 0.3s ease;
+    }
+
+    .main-swiper .swiper-pagination-bullet-active {
+      background: #FF7A00;
+      width: 2rem;
+      border-radius: 999px;
+      box-shadow: 0 0 0 3px rgba(255,122,0,0.25);
+    }
+
+    /* ===== "挑选陪玩"模态框 ===== */
+    .pick-modal {
+      background: #fff;
+      border-radius: var(--radius-lg);
+      width: 100%;
+      max-width: 70rem;
+      max-height: 90vh;
+      overflow-y: auto;
+      position: relative;
+      transform: translateY(1.2rem) scale(0.98);
+      transition: transform 0.35s cubic-bezier(.2,.8,.2,1);
+      box-shadow: 0 2rem 4rem rgba(0,0,0,0.4);
+      padding: 1.4rem 1.4rem 1.6rem;
+    }
+
+    .modal-overlay.show .pick-modal {
+      transform: translateY(0) scale(1);
+    }
+
+    .pick-modal .modal-close {
+      top: 0.8rem;
+      right: 0.8rem;
+      width: 2.2rem;
+      height: 2.2rem;
+      font-size: 1.2rem;
+    }
+
+    .pick-modal-header {
+      display: flex;
+      align-items: center;
+      gap: 0.6rem;
+      margin-bottom: 1rem;
+      padding-bottom: 0.85rem;
+      border-bottom: 1px dashed rgba(255,122,0,0.25);
+    }
+
+    .pick-modal-header img {
+      width: 2rem;
+      height: 2rem;
+      border-radius: 50%;
+      object-fit: cover;
+      background: #fff;
+      border: 0.15rem solid var(--orange-light);
+    }
+
+    .pick-modal-title {
+      font-size: 1.4rem;
+      font-weight: 800;
+      background: linear-gradient(135deg, #1A1A1A 0%, #FF7A00 100%);
+      -webkit-background-clip: text;
+      background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+
+    .pick-modal-sub {
+      font-size: 0.85rem;
+      color: var(--text-sub);
+      font-weight: 600;
+    }
+
+    .pick-modal-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 1rem;
+    }
+
+    .pick-modal-grid .empty-state {
+      grid-column: 1 / -1;
+    }
+
+    @media (max-width: 900px) {
+      .pick-modal-grid {
+        grid-template-columns: repeat(2, 1fr);
+      }
+    }
+
+    @media (max-width: 600px) {
+      .pick-modal-grid {
+        grid-template-columns: 1fr;
+      }
+      .price-list {
+        grid-template-columns: 1fr;
+      }
+      .slide-content {
+        padding: 1.5rem 5vw 3rem;
+      }
+      .slide-actions {
+        flex-direction: column;
+        align-items: stretch;
+      }
+      .slide-btn {
+        justify-content: center;
+      }
+    }
+
+    /* 移动端：导航栏浮于海报之上，Swiper 全屏 */
+    @media (max-width: 768px) {
+      .swiper.main-swiper {
+        height: 100vh;
+      }
+    }
+  </style>
+</head>
+<body>
+  <!-- 顶部导航 -->
+  <nav class="navbar">
+    <div class="logo-wrap">
+      <img src="./logo.png" alt="橙猫猫电竞 Logo" onerror="this.style.display='none'" />
+      <span class="brand-name">橙猫猫电竞</span>
+    </div>
+    <span class="nav-slogan">专业陪玩 · 快乐上分</span>
+  </nav>
+
+  <!-- 全屏滑动 PPT：4 个游戏专区页 -->
+  <!-- 提示：背景图目前使用 Unsplash 占位图，可自行替换为本地图片；
+       请修改下方各 slide 的 data-bg 属性，或将 .slide-bg 的 background-image 替换为本地路径 -->
+  <div class="swiper main-swiper">
+    <div class="swiper-wrapper">
+      <!-- 1. 无畏契约 -->
+      <div class="swiper-slide" data-game="无畏契约">
+        <!-- 背景图：可替换为本地 ./event/valorant.jpg 之类的路径 -->
+        <div class="slide-bg" style="background-image: url('./gamebp/Valorant.jpg');"></div>
+        <div class="slide-overlay"></div>
+        <div class="slide-content">
+          <div class="slide-title-wrap">
+            <div class="slide-title-cn">无畏契约</div>
+            <div class="slide-title-en">VALORANT</div>
+          </div>
+          <!-- 价格列表：由 JS 根据 SECTIONS 数据动态渲染，挡位数量任意 -->
+          <div class="price-list" data-game="无畏契约"></div>
+          <div class="slide-actions">
+            <button class="slide-btn slide-btn-contact" onclick="openQrcodeModal()">联系客服</button>
+            <button class="slide-btn slide-btn-pick" onclick="openPickModal('无畏契约')">挑选陪玩</button>
+          </div>
+        </div>
+      </div>
+
+      <!-- 2. 永劫无间 -->
+      <div class="swiper-slide" data-game="永劫无间">
+        <div class="slide-bg" style="background-image: url('./gamebp/Naraka.jpg');"></div>
+        <div class="slide-overlay"></div>
+        <div class="slide-content">
+          <div class="slide-title-wrap">
+            <div class="slide-title-cn">永劫无间</div>
+            <div class="slide-title-en">NARAKA: BLADEPOINT</div>
+          </div>
+          <div class="price-list" data-game="永劫无间"></div>
+          <div class="slide-actions">
+            <button class="slide-btn slide-btn-contact" onclick="openQrcodeModal()">联系客服</button>
+            <button class="slide-btn slide-btn-pick" onclick="openPickModal('永劫无间')">挑选陪玩</button>
+          </div>
+        </div>
+      </div>
+
+      <!-- 3. 三角洲行动 -->
+      <div class="swiper-slide" data-game="三角洲行动">
+        <div class="slide-bg" style="background-image: url('./gamebp/Delta\ Force.jpg');"></div>
+        <div class="slide-overlay"></div>
+        <div class="slide-content">
+          <div class="slide-title-wrap">
+            <div class="slide-title-cn">三角洲行动</div>
+            <div class="slide-title-en">DELTA FORCE</div>
+          </div>
+          <div class="price-list" data-game="三角洲行动"></div>
+          <div class="slide-actions">
+            <button class="slide-btn slide-btn-contact" onclick="openQrcodeModal()">联系客服</button>
+            <button class="slide-btn slide-btn-pick" onclick="openPickModal('三角洲行动')">挑选陪玩</button>
+          </div>
+        </div>
+      </div>
+
+      <!-- 4. Steam 热门游戏 -->
+      <div class="swiper-slide" data-game="steam热门游戏">
+        <div class="slide-bg" style="background-image: url('./gamebp/steam.jpg');"></div>
+        <div class="slide-overlay"></div>
+        <div class="slide-content">
+          <div class="slide-title-wrap">
+            <div class="slide-title-cn">Steam 热门游戏</div>
+            <div class="slide-title-en">STEAM POPULAR</div>
+          </div>
+          <div class="price-list" data-game="steam热门游戏"></div>
+          <div class="slide-actions">
+            <button class="slide-btn slide-btn-contact" onclick="openQrcodeModal()">联系客服</button>
+            <button class="slide-btn slide-btn-pick" onclick="openPickModal('steam热门游戏')">挑选陪玩</button>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="swiper-pagination"></div>
+  </div>
+
+  <!-- 挑选陪玩功能已迁移到 players.html（优质陪玩展示页）-->
+
+  <!-- 价格详情模态框 -->
+  <div class="modal-overlay" id="priceOverlay">
+    <div class="price-modal">
+      <button class="modal-close" id="priceClose">×</button>
+      <div class="price-modal-header">
+        <div class="price-modal-game" id="priceGame"></div>
+        <div class="price-modal-name" id="priceName"></div>
+        <div class="price-modal-price" id="priceValue"></div>
+      </div>
+      <div class="price-modal-body">
+        <div class="price-section-title">价格详情</div>
+        <ul class="price-detail-list" id="priceDetailList"></ul>
+        <div class="price-section-title">老板须知</div>
+        <ul class="price-notice-list" id="priceNoticeList"></ul>
+        <div class="price-modal-actions">
+          <button class="btn btn-detail" id="priceCloseBtn">关闭</button>
+          <a class="btn btn-book" href="javascript:void(0)" onclick="openQrcodeModal()">联系客服</a>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 详情弹窗 -->
+  <div class="modal-overlay" id="modalOverlay">
+    <div class="modal" id="modal">
+      <button class="modal-close" id="modalClose">×</button>
+      <div class="modal-banner" id="modalBanner"></div>
+      <div class="modal-body">
+        <div class="modal-header">
+          <div class="modal-name" id="modalName"></div>
+          <div class="modal-badges" id="modalBadges"></div>
+        </div>
+        <div class="modal-styles" id="modalStyles"></div>
+
+        <div class="modal-section-title">可接游戏</div>
+        <div class="modal-games" id="modalGames"></div>
+
+        <div class="modal-section-title">可接订单</div>
+        <div class="modal-orders" id="modalOrders"></div>
+
+        <div class="modal-section-title">可接单时间</div>
+        <div class="modal-time" id="modalTime"></div>
+
+        <div class="modal-section-title">个人介绍</div>
+        <p class="modal-desc" id="modalDesc"></p>
+
+        <div class="modal-section-title">语音试听</div>
+        <div class="audio-wrap">
+          <div class="audio-wrap-title">🎧 先听听，合适再下单～</div>
+          <audio class="audio-player" id="modalAudio" controls preload="none"></audio>
+        </div>
+
+        <a class="modal-book-btn" id="modalBookBtn" href="#" target="_blank" rel="noopener">🔥 立即预约，上车开黑</a>
+      </div>
+    </div>
+  </div>
+
+  <footer class="footer">
+    <div class="footer-inner">
+      <div class="brand-logo">
+        <img src="./logo.png" alt="橙猫猫电竞" onerror="this.style.display='none'" />
+        <span>橙猫猫电竞</span>
+      </div>
+      <p>专业陪玩 · 快乐上分 · 心态好 · 不压力</p>
+      <p>陪你打游戏 · 陪你看风景 · <span>陪你赢到天明</span></p>
+      <div class="copyright">© 2026 橙猫猫电竞 Orange Cat E-Sports · All Rights Reserved</div>
+    </div>
+  </footer>
+
+  <!-- 客服二维码弹窗 -->
+  <div class="modal-overlay" id="qrcodeOverlay">
+    <div class="qrcode-modal">
+      <button class="modal-close" id="qrcodeClose">×</button>
+      <div class="qrcode-title">请添加客服微信</div>
+      <div class="qrcode-img-wrap">
+        <img id="qrcodeImg" src="" alt="客服二维码" />
+        <div class="qrcode-fallback" id="qrcodeFallback">
+          <div class="qrcode-fallback-icon">📷</div>
+          <div>二维码加载失败</div>
+          <div class="qrcode-fallback-sub">请稍后重试或联系管理员</div>
+        </div>
+      </div>
+      <div class="qrcode-shift" id="qrcodeShift"></div>
+      <div class="qrcode-tip">长按或扫描二维码，添加对应班次客服</div>
+    </div>
+  </div>
+
+  <!-- 预约话术弹窗 -->
+  <div class="modal-overlay" id="bookingOverlay">
+    <div class="booking-modal">
+      <button class="modal-close" id="bookingClose">×</button>
+      <div class="booking-title">预约 <span id="bookingPlayerName"></span></div>
+      <div class="booking-subtitle">已为你生成专属预约话术</div>
+      <div class="booking-message" id="bookingMessage"></div>
+      <button class="btn btn-book btn-copy" id="bookingCopyBtn" onclick="handleCopyAndContact()">复制并联系客服</button>
+      <div class="booking-tip" id="bookingTip">点击下方按钮，一键复制话术并联系客服</div>
+    </div>
+  </div>
+
+  <!-- Swiper JS（CDN）-->
+  <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
+  <script>
+    // ===== 客服微信二维码（按时间段分发）=====
+    // 时段划分（8 小时一轮）：
+    //   早班 00:00 - 08:00  →  kefu_early.png
+    //   白班 08:00 - 16:00  →  kefu_day.png
+    //   晚班 16:00 - 24:00  →  kefu_night.png
+    // 三张二维码图片放在项目根目录，命名如下；如需换路径只改这里即可。
+    const SHIFT_QRCODES = {
+      "早班": { img: "./kefu/early.png", label: "早班客服（00:00-08:00）" },
+      "白班": { img: "./kefu/day.png", label: "白班客服（08:00-16:00）" },
+      "晚班": { img: "./kefu/night.png", label: "晚班客服（16:00-24:00）" }
+    };
+
+    // 根据当前时间返回对应班次信息 { shift, img, label }
+    function getBookingInfo() {
+      const h = new Date().getHours();
+      if (h >= 0 && h < 8)  return { shift: "早班", ...SHIFT_QRCODES["早班"] };
+      if (h >= 8 && h < 16) return { shift: "白班", ...SHIFT_QRCODES["白班"] };
+      return { shift: "晚班", ...SHIFT_QRCODES["晚班"] };
+    }
+
+    // 打开客服二维码弹窗（仅显示二维码，由"复制并联系客服"按钮触发）
+    function openQrcodeModal() {
+      const info = getBookingInfo();
+      const overlay = document.getElementById("qrcodeOverlay");
+      const img = document.getElementById("qrcodeImg");
+      const fallback = document.getElementById("qrcodeFallback");
+      const shiftLabel = document.getElementById("qrcodeShift");
+      img.src = info.img;
+      img.alt = info.label;
+      img.style.display = "block";
+      fallback.style.display = "none";
+      img.onerror = function() {
+        this.style.display = "none";
+        fallback.style.display = "flex";
+      };
+      shiftLabel.textContent = info.label;
+      overlay.classList.add("show");
+    }
+
+    function closeQrcodeModal() {
+      document.getElementById("qrcodeOverlay").classList.remove("show");
+    }
+
+    // ===== 预约话术弹窗（点"立即预约"触发）=====
+    // 1. 自动拼话术："我想约【陪玩名】，现在有空吗？（HH:MM）"
+    // 2. 弹窗展示话术 + "复制并联系客服"按钮
+    // 3. 点按钮：复制话术到剪贴板 → 关闭话术弹窗 → 弹出客服二维码弹窗
+    function buildBookingMessage(playerName) {
+      const now = new Date();
+      const hh = String(now.getHours()).padStart(2, "0");
+      const mm = String(now.getMinutes()).padStart(2, "0");
+      return `我想约【${playerName}】，现在有空吗？（${hh}:${mm}）`;
+    }
+
+    function openBookingModal(playerName) {
+      const overlay = document.getElementById("bookingOverlay");
+      const msgEl = document.getElementById("bookingMessage");
+      const nameEl = document.getElementById("bookingPlayerName");
+      const btn = document.getElementById("bookingCopyBtn");
+      const tip = document.getElementById("bookingTip");
+      if (!overlay || !msgEl) return;
+      const msg = buildBookingMessage(playerName);
+      msgEl.textContent = msg;
+      nameEl.textContent = playerName;
+      btn.dataset.msg = msg;
+      tip.textContent = "点击下方按钮，一键复制话术并联系客服";
+      btn.disabled = false;
+      btn.textContent = "复制并联系客服";
+      overlay.classList.add("show");
+    }
+
+    function closeBookingModal() {
+      document.getElementById("bookingOverlay").classList.remove("show");
+    }
+
+    // 复制文本到剪贴板（兼容降级方案）
+    function copyTextToClipboard(text) {
+      if (navigator.clipboard && window.isSecureContext) {
+        return navigator.clipboard.writeText(text);
+      }
+      // 降级方案：textarea + execCommand
+      return new Promise((resolve, reject) => {
+        const ta = document.createElement("textarea");
+        ta.value = text;
+        ta.style.position = "fixed";
+        ta.style.left = "-9999px";
+        ta.style.top = "0";
+        document.body.appendChild(ta);
+        ta.focus();
+        ta.select();
+        try {
+          document.execCommand("copy");
+          resolve();
+        } catch (e) {
+          reject(e);
+        } finally {
+          document.body.removeChild(ta);
+        }
+      });
+    }
+
+    // 点击"复制并联系客服"
+    function handleCopyAndContact() {
+      const btn = document.getElementById("bookingCopyBtn");
+      const tip = document.getElementById("bookingTip");
+      const msg = btn.dataset.msg || "";
+      copyTextToClipboard(msg).then(() => {
+        tip.textContent = "✅ 话术已复制！正在打开客服二维码…";
+        btn.disabled = true;
+        btn.textContent = "已复制，正在弹出客服…";
+        setTimeout(() => {
+          closeBookingModal();
+          openQrcodeModal();
+          // 重置按钮状态，便于下次使用
+          setTimeout(() => {
+            btn.disabled = false;
+            btn.textContent = "复制并联系客服";
+          }, 600);
+        }, 700);
+      }).catch(() => {
+        tip.innerHTML = "复制失败，请手动长按下方话术复制：<br><br>" + msg;
+        btn.disabled = true;
+        btn.textContent = "已展示话术，请手动复制";
+      });
+    }
+
+    // ===== 游戏 Logo 映射 =====
+    const gameLogos = {
+      "无畏契约": "./gamelogo/Valorant.webp",
+      "永劫无间": "./gamelogo/Naraka.webp",
+      "三角洲行动": "./gamelogo/Delta Force.webp",
+      "steam热门游戏": "./gamelogo/steam.webp"
+    };
+
+    // ===== 可接订单类型（固定分类）=====
+    const ORDER_TYPES = [
+      "永劫无间技术",
+      "永劫无间娱乐",
+      "三角洲机密娱乐",
+      "三角洲绝密技术",
+      "无畏契约娱乐",
+      "无畏契约技术",
+      "steam热门游戏",
+    ];
+
+    // ============================================================
+    //   价 格 表 数 据（集中管理，挡位数量任意，改这里即可）
+    // ------------------------------------------------------------
+    //   每个专区是一个数组，数组里每一项是一个挡位，顺序即显示顺序：
+    //     name   : 挡位名称（显示在按钮上，需唯一）
+    //     price  : 价格（显示在按钮上）
+    //     detail : 价格详情（✓ 列表，每条字符串一项）
+    //     notice : 老板须知（! 列表，每条字符串一项）
+    //   增删挡位只需增删数组里的对象，页面会自动渲染对应数量按钮。
+    // ============================================================
+    const SECTIONS = {
+      "无畏契约": [
+        {
+          name: "娱乐陪玩",
+          price: "45元/时起",
+          detail: ["匹配 45元/时","排位 50元/时","轻松娱乐局，主打陪伴与氛围", "可打普通/竞技模式", "适合想放松、聊天的老板", "全程语音沟通，不冷场"],
+          notice: ["娱乐局不保证胜率，以开心为主", "如需指定英雄请提前说明", "单局时长以实际对局为准"]
+        },
+        {
+          name: "技术(时)",
+          price: "60元/时起",
+          detail: ["技术陪按段位（匹配/下四/铂金/钻石）和性别（枪男/枪女）定价，每个性别各有 4 个等级，价格顺序如下","匹配：枪男和枪女价格相同，依次为 60、70、80、90。","下四：枪男和枪女价格相同，依次为 70、80、90、110","铂金：枪男和枪女价格相同，依次为 80、90、110、120","钻石：枪男依次为 90、110、120、130；枪女依次为 110、110、120、130","等级对应关系：枪男顺序为“神话技术、神话Pro、赋能技术、赋能Pro”；枪女顺序为“钻石技术、超凡技术、神话技术、赋能技术","技术型陪玩，瞄准稳定可带飞", "排位/竞技皆可，胜率有保障", "擅长残局处理与信息沟通", "可教学走位、身法、点位"],
+          notice: ["技术局以赢为目标，请配合指挥", "高段位需提前预约确认", "连续下单可享优惠，详询客服"]
+        },
+        {
+          name: "技术(局)",
+          price: "35元/局起",
+          detail: ["等级顺序为枪男「神话技术、神话Pro、赋能技术、赋能Pro」，枪女「钻石技术、超凡技术、神话技术、赋能技术」，单位均为r/局","匹配、下四、铂金三段男女价格完全相同，序列分别为35/40/45/50、40/45/50/60、45/50/60/70","钻石段位：枪男55/60/70/85，枪女-/60/70/85（缺项用“-”表示，下同）","超凡段位：枪男75/85/100/-，枪女-/-/85/100","神话段位：枪男-/-/100/120，枪女-/-/-/120","赋能段位：枪男-/-/-/140","技术型陪玩，瞄准稳定可带飞", "排位/竞技皆可，胜率有保障", "擅长残局处理与信息沟通", "可教学走位、身法、点位"],
+          notice: ["魔王档位需提前预约，档期紧张", "高段位/特殊要求可能加价", "下单后请准时赴约，避免浪费档期"]
+        },
+        {
+          name: "技术(6H)",
+          price: "320元/6h起",
+          detail: ["等级顺序为男「神话、神话Pro、赋能、赋能Pro」，女「钻石、超凡、神话、赋能」，单位均为r/6h","匹配、下四、铂金三段男女价格完全相同，序列分别为320/390/450/480、390/450/510/590、450/510/590/650","钻石段位男女均为第一项缺项（/），后三项依次为590/650/700","超凡段位男女均为前两项缺项（/ /），后两项依次为710/820","技术型陪玩，瞄准稳定可带飞", "排位/竞技皆可，胜率有保障", "擅长残局处理与信息沟通", "可教学走位、身法、点位"],
+          notice: ["明星档位稀缺，务必提前预约", "一经预约不退不改，请确认时间", "专属服务内容可与客服沟通定制"]
+        },
+        {
+          name: "特殊需求",
+          price: "7元/局起",
+          detail: ["甜蜜 单局7R，小时10R", "1陪4 单局7R，小时10R", "定制称呼 单局9R，小时15R", "教学/外服 单局7R，小时10R","包赢 下四15R/局，铂钻20R/局"],
+          notice: ["特殊需求须提前告知", "一经预约不退不改，请确认时间", "专属服务内容可与客服沟通定制"]
+        }
+      ],
+      "永劫无间": [
+        {
+          name: "娱乐蚀月",
+          price: "30元/时",
+          detail: ["娱乐陪伴，三排天选欢乐开黑", "会配合会拉扯，氛围轻松", "适合想放松、找搭子的老板", "全程语音，不压力"],
+          notice: ["娱乐局不保证吃鸡", "英雄选择可商量，不强制", "单局以实际对局时长为准"]
+        },
+        {
+          name: "娱乐坠日",
+          price: "35元/时",
+          detail: ["娱乐陪伴，三排天选欢乐开黑", "会配合会拉扯，氛围轻松", "适合想放松、找搭子的老板", "全程语音，不压力"],
+          notice: ["娱乐局不保证吃鸡", "英雄选择可商量，不强制", "单局以实际对局时长为准"]
+        },
+        {
+          name: "娱乐修罗",
+          price: "40元/时",
+          detail: ["娱乐陪伴，三排天选欢乐开黑", "会配合会拉扯，氛围轻松", "适合想放松、找搭子的老板", "全程语音，不压力"],
+          notice: ["娱乐局不保证吃鸡", "英雄选择可商量，不强制", "单局以实际对局时长为准"]
+        },
+        {
+          name: "娱乐龙王",
+          price: "50元/时",
+          detail: ["娱乐陪伴，三排天选欢乐开黑", "会配合会拉扯，氛围轻松", "适合想放松、找搭子的老板", "全程语音，不压力"],
+          notice: ["娱乐局不保证吃鸡", "英雄选择可商量，不强制", "单局以实际对局时长为准"]
+        },
+        {
+          name: "普通技术",
+          price: "50元/时",
+          detail: ["技术型陪玩，振刀博弈精通", "三排/单排皆可，稳定带飞", "擅长主流武器连招与走位", "可教学振刀、连招、地图理解"],
+          notice: ["技术局以赢为目标，请配合", "高段位需提前确认", "指定英雄/武器请提前说明"]
+        },
+        {
+          name: "金牌技术",
+          price: "70元/时",
+          detail: ["金牌级技术，国服水准带飞", "稳定 carry，残局兜底", "适合冲段位、保级、挑战高难", "可一对一战术指导"],
+          notice: ["金牌档位需提前预约，档期紧张", "高段位/特殊要求可能加价", "下单后请准时赴约，避免浪费档期"]
+        },
+        {
+          name: "魔王技术",
+          price: "90元/时",
+          detail: ["魔王级高手，天人前百实力", "单排/三排 carry，火男/沙男精通", "适合冲天人段位、保级", "可一对一技术教学"],
+          notice: ["魔王档期紧张，需提前预约", "高段位可能加价", "请准时赴约，避免档期浪费"]
+        },
+        {
+          name: "明星技术",
+          price: "118元/时",
+          detail: ["明星级顶级陪玩，国服前列", "顶配操作 + 战术教学一体", "专属复盘与针对性指导", "适合追求极致体验的老板"],
+          notice: ["明星档位稀缺，务必提前预约", "一经预约不退不改", "专属服务可定制，详询客服"]
+        }
+      ],
+      "三角洲行动": [
+        {
+          name: "机密娱乐",
+          price: "50元/时",
+          detail: ["双陪100元/时","机密模式娱乐陪玩，安全撤离", "熟悉机密地图物资点与路线", "医疗/支援兵种配合到位", "适合想轻松摸金、体验剧情的老板"],
+          notice: ["娱乐局不保证高收益", "撤离路线可商量，不强制", "单局以实际对局时长为准"]
+        },
+        {
+          name: "附加项目",
+          price: "10元/时起",
+          detail: ["甜蜜单（带暧昧/恋爱氛围）+10元/时", "特殊称呼+15元/时", "均基于原价"],
+          notice: ["娱乐局不保证高收益", "撤离路线可商量，不强制", "单局以实际对局时长为准"]
+        },
+        {
+          name: "绝密技术",
+          price: "88元/时",
+          detail: ["双陪160元/时", "每位陪玩击杀数大于3人/时 或 物资保底≥ 688w", "突击/支援兵种精通，正面硬刚", "可教学地图理解与战术配合"],
+          notice: ["技术局以高收益撤离为目标", "高难度可能加价", "指定兵种/路线请提前说明"]
+        },
+        {
+          name: "金牌技术",
+          price: "120元/时",
+          detail: ["双陪220元/时", "每位陪玩击杀数大于6人/时 或 物资保底≥ 888w", "适合冲高价值目标、挑战高难", "可一对一战术教学"],
+          notice: ["魔王档期紧张，需提前预约", "高价值目标可能加价", "请准时赴约，避免档期浪费"]
+        },
+        {
+          name: "魔王陪玩",
+          price: "150元/时",
+          detail: ["双陪280元/时", "每位陪玩击杀数大于8人/时 或 物资保底≥ 1000w+", "适合冲高价值目标、挑战高难", "可一对一战术教学"],
+          notice: ["魔王档期紧张，需提前预约", "高价值目标可能加价", "请准时赴约，避免档期浪费"]
+        },
+        {
+          name: "明星陪玩",
+          price: "180元/时",
+          detail: ["双陪360元/时", "每位陪玩击杀数大于10人/时 或 物资保底≥ 1300w+", "适合追求极致收益的老板"],
+          notice: ["明星档位稀缺，务必提前预约", "一经预约不退不改", "专属服务可定制，详询客服"]
+        }
+      ],
+      "steam热门游戏": [
+        {
+          name: "热门游戏娱乐型",
+          price: "30元/时",
+          detail: ["Steam 热门游戏陪玩，多款可选", "轻松娱乐为主，氛围陪伴", "适合想找搭子一起玩的老板", "全程语音沟通，不冷场"],
+          notice: ["具体游戏请提前与客服确认", "娱乐局不保证胜负", "单局时长以实际对局为准"]
+        },
+        {
+          name: "热门游戏技术型",
+          price: "50元/时",
+          detail: ["热门游戏偏技术陪玩，多款游戏精通", "稳定带飞，技术+氛围兼顾", "擅长主流Steam游戏玩法", "可教学游戏机制与技巧"],
+          notice: ["具体游戏需提前确认是否有档", "高难度内容可能加价", "指定游戏/模式请提前说明"]
+        }
+      ]
+    };
+
+    // ===== 渲染所有专区的价格列表（挡位数量任意）=====
+    function renderPriceLists() {
+      Object.keys(SECTIONS).forEach(game => {
+        const container = document.querySelector(`.price-list[data-game="${game}"]`);
+        if (!container) return;
+        const prices = SECTIONS[game];
+        if (!prices || prices.length === 0) {
+          container.innerHTML = '<div class="price-empty">暂无价格</div>';
+          return;
+        }
+        container.innerHTML = prices.map(p =>
+          `<div class="price-item"><span class="price-item-name">${p.name}</span><span class="price-item-price">${p.price}</span></div>`
+        ).join("");
+      });
+    }
+
+    // ===== 打开价格详情模态框 =====
+    function openPriceModal(game, key) {
+      const overlay = document.getElementById("priceOverlay");
+      const prices = SECTIONS[game];
+      if (!prices) return;
+      const item = prices.find(p => p.name === key);
+      if (!item) return;
+      document.getElementById("priceGame").textContent = game;
+      document.getElementById("priceName").textContent = item.name;
+      document.getElementById("priceValue").textContent = item.price;
+      document.getElementById("priceDetailList").innerHTML =
+        (item.detail || []).map(t => `<li>${t}</li>`).join("");
+      document.getElementById("priceNoticeList").innerHTML =
+        (item.notice || []).map(t => `<li>${t}</li>`).join("");
+      overlay.classList.add("show");
+      document.body.style.overflow = "hidden";
+    }
+
+    function closePriceModal() {
+      const overlay = document.getElementById("priceOverlay");
+      if (overlay) overlay.classList.remove("show");
+      document.body.style.overflow = "";
+    }
+
+    // ===== 等级体系（从高到低：明星 > 魔王 > 金牌 > 技术 > 娱乐）=====
+    // 技术/娱乐用于排序与筛选分级，但不显示徽章；明星/魔王/金牌为重点展示徽章
+    const TIER_ORDER = ["明星", "魔王", "金牌", "技术", "娱乐"];
+    const TIER_BADGES = ["明星", "魔王", "金牌"]; // 仅这三档显示徽章
+    const TIER_STYLES = {
+      "明星": { bg: "linear-gradient(135deg,#FF69B4,#FFD700)", color: "#fff" },
+      "魔王": { bg: "linear-gradient(135deg,#8B0000,#FF4500)", color: "#fff" },
+      "金牌": { bg: "linear-gradient(135deg,#FFB300,#FF7A00)", color: "#3A1A00" }
+    };
+
+    // ===== 全能判定：可接全部三款游戏的陪玩显示"全能"特殊标签 =====
+    const ALL_GAMES = ["无畏契约", "永劫无间", "三角洲行动"];
+    function isOmni(p) {
+      return ALL_GAMES.every(g => p.games.includes(g));
+    }
+
+    const players = [
+      {
+        id: 1,
+        name: "鸽子",
+        games: ["永劫无间","steam热门游戏"],
+        styles: ["青叔音", "娱乐局", "不压力"],
+        orders: ["永劫无间技术","steam热门游戏"],
+        tier: "技术",
+        avatar: "./avatars/gezi.jpg",
+        signature: "泥真的要点一单客服嘛",
+        description: "主玩永劫无间三排天选模式，擅长长剑+阔刀，团队意识拉满。语音成熟稳重，心态好不压力，带你稳定吃鸡。",
+        availableTime: "每日 18:00 - 02:00",
+        audio: "./gezi.mp3"
+      },
+      {
+        id: 2,
+        name: "雨眠",
+        games: ["永劫无间"],
+        styles: ["萝莉音", "温柔音", "娱乐局"],
+        orders: ["永劫无间娱乐"],
+        tier: "娱乐",
+        avatar: "./avatars/yumian.jpg",
+        signature: "甜萌萝莉音，双区娱乐全程陪",
+        description: "永劫无间主玩玉玲珑/殷紫萍，声音软萌，会撒娇会鼓励，陪玩体验拉满，会配合会拉扯，情绪稳定，温柔的情绪树洞",
+        availableTime: "每日 14:00 - 23:00",
+        audio: "./audio/yumian.mp3"
+      },
+      {
+        id: 3,
+        name: "QQ",
+        games: ["永劫无间"],
+        styles: ["御姐音", "娱乐局", "不压力"],
+        orders: ["永劫无间娱乐"],
+        tier: "娱乐",
+        avatar: "./avatars/qq.jpg",
+        signature: "永劫无间娱乐御姐音，边玩边聊超快乐",
+        description: "永劫无间三排/单排皆可，主打轻松愉快的陪伴体验。熟练胡桃/无尘，治疗与支援到位。陪你唠嗑、听歌、下饭，气氛活跃不冷场。",
+        availableTime: "每日 19:00 - 02:00",
+        audio: "./audio/qq.mp3"
+      },
+      {
+        id: 4,
+        name: "巴掌印",
+        games: ["无畏契约","永劫无间","三角洲行动","steam热门游戏"],
+        styles: ["御姐音", "娱乐局"],
+        orders: ["永劫无间娱乐","无畏契约娱乐", "三角洲机密娱乐","steam热门游戏"],
+        tier: "娱乐",
+        avatar: "./avatars/bazhangyin.jpg",
+        signature: "三区全能御姐，瓦洲机密向导",
+        description: "心态好脾气好不矫情，无敌尬聊王，偶尔小c ，瓦除一突所有位置可补，洲主玩支援/信息，对枪打得过保护你，打不过保佑你，劫主二号位/三号位，老板指哪打哪绝对听从老板指挥! ",
+        availableTime: "全天可约",
+        audio: "./audio/bazhangyin.mp3"
+      },
+      {
+        id: 5,
+        name: "小白",
+        games: ["三角洲行动"],
+        styles: ["萝莉音", "娱乐局", "温柔音"],
+        orders: ["三角洲机密娱乐"],
+        tier: "娱乐",
+        avatar: "./avatars/xiaobai.jpg",
+        signature: "三角洲小白妹妹，机密行动安全撤离专家",
+        description: "三角洲行动主玩医疗+支援兵种，熟悉机密地图。会帮你搜刮物资、规划撤离路线、危险时第一时间救援。语音软萌，陪玩体验超舒适。",
+        availableTime: "每日 10:00 - 22:00",
+        audio: "./audio/xiaobai.mp3"
+      },
+      {
+        id: 6,
+        name: "临沐",
+        games: ["无畏契约", "三角洲行动","steam热门游戏"],
+        styles: ["青叔音", "纯武将"],
+        orders: ["无畏契约娱乐", "三角洲绝密技术","steam热门游戏"],
+        tier: "金牌",
+        avatar: "./avatars/linmu.jpg",
+        signature: "三角洲全能补位，瓦区哨位精通",
+        description: "无畏契约主玩哨位，残局兜底的神。三角洲主玩一号位，先打懦夫后打药，二字欧美一字猖！",
+        availableTime: "每日 20:00 - 03:00",
+        audio: "./audio/linmu.mp3"
+      },
+      {
+        id: 7,
+        name: "阿鹤",
+        games: ["永劫无间", "三角洲行动","steam热门游戏"],
+        styles: ["温柔音", "不压力"],
+        orders: ["永劫无间娱乐", "三角洲绝密技术","steam热门游戏"],
+        tier: "金牌",
+        avatar: "./avatars/ahe.jpg",
+        signature: "永劫变身拆火，三角洲全能干员，稳中带秀",
+        description: "永劫无间主玩变身系英雄（大佛、沈妙、岳山），三角洲行动全能补位，侦查突击支援样样精通。团队型选手，稳中带秀，能抗能打能策应。",
+        availableTime: "每日 19:00 - 01:00",
+        audio: "./audio/ahe.mp3"
+      },
+      {
+        id: 8,
+        name: "小憋",
+        games: ["永劫无间"],
+        styles: ["极品破碎屌丝音", "战斗型", "上分"],
+        orders: ["永劫无间技术"],
+        tier: "魔王",
+        avatar: "./avatars/xiaobie.jpg",
+        signature: "想不想看看火男玩家们在干什么",
+        description: "永劫无间单排天人前百，你的三排v2狂战火老公",
+        availableTime: "每日 21:00 - 06:00",
+        audio: "./audio/xiaobie.mp3"
+      },
+      {
+        id: 9,
+        name: "莫遮",
+        games: ["永劫无间", "三角洲行动"],
+        styles: ["青年音", "温柔音"],
+        orders: ["永劫无间娱乐", "三角洲机密娱乐"],
+        tier: "娱乐",
+        avatar: "./avatars/mozhe.jpg",
+        signature: "双区娱乐+机密，节奏稳心态好",
+        description: "永劫无间主玩长枪+太刀，远程点杀与近战收割兼备。三角洲行动主玩突击兵种，熟悉机密地图全部路线与物资点。会主动沟通，帮你规划行动。",
+        availableTime: "每日 16:00 - 00:00",
+        audio: "./audio/mozhe.mp3"
+      },
+      {
+        id: 10,
+        name: "楠平",
+        games: ["永劫无间"],
+        styles: ["青年音", "不压力", "娱乐局"],
+        orders: ["永劫无间娱乐"],
+        tier: "娱乐",
+        avatar: "./avatars/nanping.jpg",
+        signature: "永劫无间美人鱼叔叔，陪你聊陪你玩",
+        description: "永劫无间娱乐局常客，熟悉所有英雄。主打陪伴氛围，节奏轻松，边打边唠嗑。适合想放松、找个搭子聊天开黑的玩家。",
+        availableTime: "每日 13:00 - 23:00",
+        audio: "./audio/nanping.mp3"
+      },
+      {
+        id: 11,
+        name: "丸子",
+        games: ["无畏契约", "三角洲行动","steam热门游戏"],
+        styles: ["少女音", "娱乐局", "温柔音"],
+        orders: ["无畏契约娱乐", "三角洲机密娱乐","steam热门游戏"],
+        tier: "娱乐",
+        avatar: "./avatars/wanzi.jpg",
+        signature: "瓦洲双修，元气少女",
+        description: "无畏契约主玩烟位、哨位，三角洲主玩蜂医、麦晓雯（喜欢跑刀的囤囤鼠一枚呀），元气少女音，活泼嘴甜有分寸",
+        availableTime: "每日 15:00 - 01:00",
+        audio: "./audio/wanzi.mp3"
+      },
+      {
+        id: 12,
+        name: "小波",
+        games: ["永劫无间"],
+        styles: ["青年音", "娱乐局", "不压力"],
+        orders: ["永劫无间娱乐"],
+        tier: "娱乐",
+        avatar: "./avatars/xiaobo.jpg",
+        signature: "劫区快乐小波，下饭操作超有梗",
+        description: "永劫无间娱乐局常驻，主玩各种冷门英雄也能秀。操作飘逸，话痨会整活，一把游戏笑点不断，适合想开心放松的你。",
+        availableTime: "每日 17:00 - 02:00",
+        audio: "./audio/xiaobo.mp3"
+      },
+      {
+        id: 13,
+        name: "三笠",
+        games: ["无畏契约"],
+        styles: ["青年音", "娱乐局", "不压力"],
+        orders: ["无畏契约娱乐"],
+        tier: "娱乐",
+        avatar: "./avatars/sanli.jpg",
+        signature: "瓦区休闲搭子，娱乐排位两不误",
+        description: "无畏契约主玩决斗位，瞄准与身法稳定。擅长残局处理与信息沟通。排位/娱乐皆可，节奏不紧不慢，陪你一局接一局。",
+        availableTime: "每日 18:00 - 00:00",
+        audio: "./audio/sanli.mp3"
+      },
+      {
+        id: 14,
+        name: "苹果",
+        games: ["永劫无间"],
+        styles: ["青叔音", "战斗型", "上分"],
+        orders: ["永劫无间技术"],
+        tier: "技术",
+        avatar: "./avatars/pingguo.jpg",
+        signature: "永劫无间技术导师，段位快速提升",
+        description: "永劫无间国服前1000，精通所有主流武器连招与博弈。单排/三排皆可，擅长教学：走位、振刀、连招、地图理解一手教。适合想冲段位、学技术的玩家。",
+        availableTime: "每日 09:00 - 18:00",
+        audio: "./audio/pingguo.mp3"
+      },
+      {
+        id: 15,
+        name: "小运",
+        games: ["永劫无间"],
+        styles: ["青年音", "战斗型", "指挥型"],
+        orders: ["永劫无间技术"],
+        tier: "技术",
+        avatar: "./avatars/xiaoyun.jpg",
+        signature: "永劫无间沙男火男技术导师，段位快速提升",
+        description: "永劫无间国服前1000，精通所有主流武器英雄、连招与博弈。适合想冲段位、学英雄的玩家。",
+        availableTime: "每日 20:00 - 02:00",
+        audio: "./audio/xiaoyun.mp3"
+      },
+      {
+        id: 16,
+        name: "礼拜六",
+        games: ["无畏契约","永劫无间","三角洲行动","steam热门游戏"],
+        styles: ["青年音", "不压力"],
+        orders: ["永劫无间娱乐","无畏契约技术", "三角洲机密娱乐","steam热门游戏"],
+        tier: "技术",
+        avatar: "./avatars/libailiu.jpg",
+        signature: "永劫冰女狐狸，瓦霓虹，三角洲张姐。话多不高冷，打得过我的不多，打不过我的懒得打",
+        description: "永劫冰女狐狸控场拉扯，瓦霓虹跑轰突破，三角洲张姐正面硬刚，每款都有绝活。话多不冷场，素质高不压力，输了复盘不甩锅。至于那些打不过我的——我更是懒得打",
+        availableTime: "每日 14:00 - 23:00",
+        audio: "./audio/libailiu.mp3"
+      },
+    ];
+
+    // ===== 等级优先级数值（越小越靠前）=====
+    function tierRank(tier) {
+      const idx = TIER_ORDER.indexOf(tier);
+      return idx === -1 ? TIER_ORDER.length : idx;
+    }
+
+    // ===== DOM（详情弹窗相关元素）=====
+    const modalOverlay = document.getElementById("modalOverlay");
+    const modalClose = document.getElementById("modalClose");
+    const modalBanner = document.getElementById("modalBanner");
+    const modalName = document.getElementById("modalName");
+    const modalBadges = document.getElementById("modalBadges");
+    const modalStyles = document.getElementById("modalStyles");
+    const modalGames = document.getElementById("modalGames");
+    const modalOrders = document.getElementById("modalOrders");
+    const modalDesc = document.getElementById("modalDesc");
+    const modalAudio = document.getElementById("modalAudio");
+    const modalBookBtn = document.getElementById("modalBookBtn");
+
+    // ===== 渲染单张陪玩卡片 HTML（与原卡片样式完全一致）=====
+    function buildCardHtml(p) {
+      // 游戏 logos 堆叠
+      const logosHtml = p.games.map(g =>
+        `<img class="game-logo-item" src="${gameLogos[g]}" alt="${g}" title="${g}" onerror="this.style.display='none'">`
+      ).join("");
+
+      // 风格标签
+      const stylesHtml = p.styles.map(s =>
+        `<span class="style-tag">${s}</span>`
+      ).join("");
+
+      // 可接订单标签
+      const ordersHtml = p.orders.map(o =>
+        `<span class="order-tag">${o}</span>`
+      ).join("");
+
+      // 右上角徽章：等级（仅明星/魔王/金牌）+ 全能
+      let badgesHtml = "";
+      if (TIER_BADGES.includes(p.tier)) {
+        const ts = TIER_STYLES[p.tier];
+        badgesHtml += `<span class="tier-badge" style="background:${ts.bg};color:${ts.color}">${p.tier}</span>`;
+      }
+      if (isOmni(p)) {
+        badgesHtml += `<span class="omni-badge">全能</span>`;
+      }
+      const badgesWrap = badgesHtml ? `<div class="card-badges">${badgesHtml}</div>` : "";
+
+      return `
+        <div class="card">
+          <div class="card-avatar">
+            <div class="game-logos">${logosHtml}</div>
+            <img class="main-avatar" src="${p.avatar}" alt="${p.name}" loading="lazy"
+                 onerror="this.style.display='none';this.parentElement.querySelector('.avatar-fallback')&&(this.parentElement.querySelector('.avatar-fallback').style.display='flex')">
+            <div class="avatar-fallback" style="display:none;">${p.name.charAt(0)}</div>
+            ${badgesWrap}
+          </div>
+          <div class="card-body">
+            <div class="card-name">${p.name}</div>
+            <div class="card-orders">${ordersHtml}</div>
+            <div class="card-signature">${p.signature}</div>
+            <div class="card-time">⏰ ${p.availableTime || "时间未定"}</div>
+            <div class="card-styles">${stylesHtml}</div>
+            <div class="card-actions">
+              <button class="btn btn-detail" data-id="${p.id}">查看详情</button>
+              <a class="btn btn-book" href="javascript:void(0)" onclick="openBookingModal('${p.name}')">立即预约</a>
+            </div>
+          </div>
+        </div>
+      `;
+    }
+
+    // ===== 渲染卡片到指定容器（接收筛选后的数组，供"挑选陪玩"弹窗复用）=====
+    function renderCards(list, container) {
+      if (!container) return;
+      if (!list || list.length === 0) {
+        container.innerHTML = '<div class="empty-state">暂无该专区陪玩</div>';
+        return;
+      }
+      // 按等级优先级排序（明星 > 魔王 > 金牌 > 技术 > 娱乐）
+      list = [...list].sort((a, b) => tierRank(a.tier) - tierRank(b.tier));
+      container.innerHTML = list.map(buildCardHtml).join("");
+      // 绑定查看详情按钮
+      container.querySelectorAll(".btn-detail").forEach(btn => {
+        btn.addEventListener("click", () => {
+          const id = parseInt(btn.dataset.id, 10);
+          openModal(id);
+        });
+      });
+    }
+
+    // ===== "挑选陪玩"跳转到优质陪玩展示页（带游戏参数自动筛选）=====
+    function openPickModal(game) {
+      window.location.href = `players.html?game=${encodeURIComponent(game)}`;
+    }
+
+    // ===== 打开弹窗 =====
+    function openModal(id) {
+      const p = players.find(x => x.id === id);
+      if (!p) return;
+
+      modalName.textContent = p.name;
+
+      // 右上角徽章：等级（仅明星/魔王/金牌）+ 全能
+      let mBadges = "";
+      if (TIER_BADGES.includes(p.tier)) {
+        const ts = TIER_STYLES[p.tier];
+        mBadges += `<span class="tier-badge" style="background:${ts.bg};color:${ts.color}">${p.tier}</span>`;
+      }
+      if (isOmni(p)) {
+        mBadges += `<span class="omni-badge">全能</span>`;
+      }
+      modalBadges.innerHTML = mBadges;
+
+      // 风格标签
+      modalStyles.innerHTML = p.styles.map(s =>
+        `<span class="style-tag">${s}</span>`
+      ).join("");
+
+      // 可接订单
+      modalOrders.innerHTML = p.orders.map(o =>
+        `<span class="order-tag">${o}</span>`
+      ).join("");
+
+      // 可接游戏
+      modalGames.innerHTML = p.games.map(g =>
+        `<span class="game-pill">
+          <img src="${gameLogos[g]}" alt="${g}" onerror="this.style.display='none'">
+          ${g}
+        </span>`
+      ).join("");
+
+      // 可接单时间
+      const modalTime = document.getElementById("modalTime");
+      if (modalTime) modalTime.textContent = p.availableTime || "时间未定，请咨询客服";
+
+      modalDesc.textContent = p.description;
+      // 立即预约：弹出话术弹窗（拼出"我想约【陪玩名】，现在有空吗？"）
+      const bookPlayerName = p.name;
+      modalBookBtn.href = "javascript:void(0)";
+      modalBookBtn.onclick = function(e) {
+        e.preventDefault();
+        openBookingModal(bookPlayerName);
+      };
+
+      // 头像大图 + 左下角游戏 logos
+      const bannerLogosHtml = p.games.map(g =>
+        `<img src="${gameLogos[g]}" alt="${g}" title="${g}" onerror="this.style.display='none'">`
+      ).join("");
+
+      modalBanner.innerHTML = `
+        <img src="${p.avatar}" alt="${p.name}"
+             onerror="this.style.display='none';this.parentElement.textContent='${p.name.charAt(0)}'">
+        <div class="banner-game-logos">${bannerLogosHtml}</div>
+      `;
+
+      // 音频
+      modalAudio.src = p.audio;
+      modalAudio.load();
+
+      modalOverlay.classList.add("show");
+      document.body.style.overflow = "hidden";
+    }
+
+    // ===== 关闭弹窗 =====
+    function closeModal() {
+      modalOverlay.classList.remove("show");
+      document.body.style.overflow = "";
+      modalAudio.pause();
+    }
+
+    // ===== 弹窗关闭事件 =====
+    modalClose.addEventListener("click", closeModal);
+    modalOverlay.addEventListener("click", (e) => {
+      if (e.target === modalOverlay) closeModal();
+    });
+    document.addEventListener("keydown", (e) => {
+      if (e.key === "Escape" && modalOverlay.classList.contains("show")) {
+        closeModal();
+      }
+    });
+
+    // ===== 客服二维码弹窗关闭事件 =====
+    (function bindQrcodeClose() {
+      const qrcodeOverlay = document.getElementById("qrcodeOverlay");
+      const qrcodeClose = document.getElementById("qrcodeClose");
+      if (!qrcodeOverlay) return;
+      qrcodeClose.addEventListener("click", closeQrcodeModal);
+      qrcodeOverlay.addEventListener("click", (e) => {
+        if (e.target === qrcodeOverlay) closeQrcodeModal();
+      });
+      document.addEventListener("keydown", (e) => {
+        if (e.key === "Escape" && qrcodeOverlay.classList.contains("show")) {
+          closeQrcodeModal();
+        }
+      });
+    })();
+
+    // ===== 预约话术弹窗关闭事件 =====
+    (function bindBookingClose() {
+      const bookingOverlay = document.getElementById("bookingOverlay");
+      const bookingClose = document.getElementById("bookingClose");
+      if (!bookingOverlay) return;
+      bookingClose.addEventListener("click", closeBookingModal);
+      bookingOverlay.addEventListener("click", (e) => {
+        if (e.target === bookingOverlay) closeBookingModal();
+      });
+      document.addEventListener("keydown", (e) => {
+        if (e.key === "Escape" && bookingOverlay.classList.contains("show")) {
+          closeBookingModal();
+        }
+      });
+    })();
+
+    // ===== 价格详情弹窗关闭事件 =====
+    (function bindPriceClose() {
+      const priceOverlay = document.getElementById("priceOverlay");
+      const priceClose = document.getElementById("priceClose");
+      const priceCloseBtn = document.getElementById("priceCloseBtn");
+      if (!priceOverlay) return;
+      if (priceClose) priceClose.addEventListener("click", closePriceModal);
+      if (priceCloseBtn) priceCloseBtn.addEventListener("click", closePriceModal);
+      priceOverlay.addEventListener("click", (e) => {
+        if (e.target === priceOverlay) closePriceModal();
+      });
+      document.addEventListener("keydown", (e) => {
+        if (e.key === "Escape" && priceOverlay.classList.contains("show")) {
+          closePriceModal();
+        }
+      });
+    })();
+
+    // ===== 价格列表点击委托：点击任意 price-item 弹出价格详情 =====
+    // 先渲染价格列表，再绑定点击
+    renderPriceLists();
+    document.querySelectorAll('.swiper-slide').forEach(slide => {
+      const game = slide.dataset.game;
+      if (!game) return;
+      slide.addEventListener('click', (e) => {
+        const item = e.target.closest('.price-item');
+        if (!item) return;
+        const nameEl = item.querySelector('.price-item-name');
+        if (!nameEl) return;
+        openPriceModal(game, nameEl.textContent.trim());
+      });
+    });
+
+    // ===== Swiper 全屏滑动初始化 =====
+    // effect: fade 配合 direction: vertical；支持鼠标滚轮和触摸滑动；显示圆点分页器
+    const mainSwiper = new Swiper('.main-swiper', {
+      direction: 'vertical',
+      effect: 'fade',
+      fadeEffect: { crossFade: true },
+      speed: 700,
+      mousewheel: true,
+      keyboard: { enabled: true },
+      pagination: {
+        el: '.swiper-pagination',
+        clickable: true
+      }
+    });
+  </script>
+</body>
+</html>

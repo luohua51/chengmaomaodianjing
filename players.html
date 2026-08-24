@@ -1,0 +1,1311 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>优质陪玩展示 · 橙猫猫电竞</title>
+  <style>
+    /* ===== 基础变量 ===== */
+    :root {
+      --orange-primary: #FF7A00;
+      --orange-light: #FFF3E6;
+      --orange-deep: #F97316;
+      --bg-page: #0f0f17;
+      --bg-card: #ffffff;
+      --text-main: #1f2937;
+      --text-sub: #6b7280;
+      --text-light: #9ca3af;
+      --border: #f0f0f0;
+      --shadow: 0 4px 24px rgba(0,0,0,0.08);
+      --shadow-hover: 0 10px 36px rgba(255,122,0,0.22);
+      --radius: 0.875rem;
+      --radius-lg: 1.25rem;
+      --transition: all 0.3s cubic-bezier(.2,.8,.2,1);
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    html, body { height: 100%; }
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "PingFang SC", "Microsoft YaHei", sans-serif;
+      background: var(--bg-page);
+      color: var(--text-main);
+      -webkit-font-smoothing: antialiased;
+      line-height: 1.6;
+    }
+    img { display: block; max-width: 100%; }
+    a { text-decoration: none; color: inherit; }
+    button { font-family: inherit; cursor: pointer; border: none; background: none; }
+
+    /* ===== 顶部导航（半透明，浮于内容之上）===== */
+    .navbar {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0.9rem 5vw;
+      background: rgba(255,255,255,0.95);
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+      border-bottom: 1px solid var(--border);
+      position: sticky;
+      top: 0;
+      z-index: 50;
+    }
+    .navbar .brand-logo {
+      display: flex;
+      align-items: center;
+      gap: 0.55rem;
+    }
+    .navbar .brand-logo img {
+      width: 2.2rem;
+      height: 2.2rem;
+      border-radius: 0.55rem;
+      object-fit: cover;
+      border: 2px solid var(--orange-primary);
+    }
+    .navbar .brand-name {
+      font-size: 1.3rem;
+      font-weight: 800;
+      background: linear-gradient(135deg,#FF7A00 0%, #F97316 60%, #FFB300 100%);
+      -webkit-background-clip: text;
+      background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+    .navbar .nav-back {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.3rem;
+      font-size: 0.92rem;
+      font-weight: 700;
+      color: var(--orange-primary);
+      padding: 0.45rem 1rem;
+      border-radius: 999px;
+      background: var(--orange-light);
+      transition: var(--transition);
+    }
+    .navbar .nav-back:hover {
+      background: var(--orange-primary);
+      color: #fff;
+      transform: translateX(-2px);
+    }
+
+    /* ===== 页面主区 ===== */
+    .page-main {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 1.8rem 5vw 3rem;
+    }
+
+    /* 专区标题区 */
+    .section-header {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+      margin-bottom: 1.5rem;
+      padding: 1.3rem 1.4rem;
+      background: linear-gradient(135deg, rgba(255,122,0,0.12), rgba(255,179,0,0.06));
+      border: 1px solid rgba(255,122,0,0.18);
+      border-radius: var(--radius-lg);
+    }
+    .section-header .section-logo {
+      width: 3.2rem;
+      height: 3.2rem;
+      object-fit: contain;
+      border-radius: 0.6rem;
+      background: #fff;
+      padding: 0.3rem;
+    }
+    .section-header .section-title {
+      font-size: 1.55rem;
+      font-weight: 800;
+      color: #fff;
+    }
+    .section-header .section-sub {
+      font-size: 0.9rem;
+      color: rgba(255,255,255,0.8);
+      margin-top: 0.15rem;
+    }
+    .section-header .section-count {
+      margin-left: auto;
+      padding: 0.35rem 0.9rem;
+      background: rgba(255,122,0,0.9);
+      color: #fff;
+      font-size: 0.82rem;
+      font-weight: 700;
+      border-radius: 999px;
+      white-space: nowrap;
+    }
+
+    /* ===== 筛选条 ===== */
+    .filter-row {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 1rem;
+      flex-wrap: wrap;
+      margin-bottom: 1.5rem;
+    }
+    .filter-bar {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.55rem;
+    }
+    .filter-chip {
+      padding: 0.5rem 1.1rem;
+      font-size: 0.9rem;
+      font-weight: 600;
+      border-radius: 999px;
+      background: rgba(255,255,255,0.08);
+      color: rgba(255,255,255,0.7);
+      border: 1px solid rgba(255,255,255,0.12);
+      transition: var(--transition);
+    }
+    .filter-chip:hover {
+      background: rgba(255,122,0,0.2);
+      color: #fff;
+    }
+    .filter-chip.active {
+      background: linear-gradient(135deg, #FF7A00, #F97316);
+      color: #fff;
+      border-color: transparent;
+      box-shadow: 0 4px 12px rgba(255,122,0,0.35);
+    }
+
+    /* 排序条 */
+    .sort-bar {
+      display: flex;
+      align-items: center;
+      gap: 0.4rem;
+      flex-shrink: 0;
+    }
+    .sort-label {
+      font-size: 0.82rem;
+      color: rgba(255,255,255,0.5);
+      font-weight: 600;
+      margin-right: 0.2rem;
+    }
+    .sort-chip {
+      padding: 0.4rem 0.9rem;
+      font-size: 0.85rem;
+      font-weight: 600;
+      border-radius: 999px;
+      background: rgba(255,255,255,0.08);
+      color: rgba(255,255,255,0.7);
+      border: 1px solid rgba(255,255,255,0.12);
+      transition: var(--transition);
+    }
+    .sort-chip:hover {
+      background: rgba(255,179,0,0.2);
+      color: #fff;
+    }
+    .sort-chip.active {
+      background: linear-gradient(135deg, #FFB300, #FF7A00);
+      color: #fff;
+      border-color: transparent;
+      box-shadow: 0 4px 12px rgba(255,179,0,0.35);
+    }
+    @media (max-width: 768px) {
+      .filter-row { flex-direction: column; align-items: flex-start; }
+    }
+
+    /* 卡片统计标签 */
+    .card-stats {
+      display: flex;
+      gap: 0.4rem;
+      flex-wrap: wrap;
+    }
+    .stat-chip {
+      font-size: 0.7rem;
+      font-weight: 600;
+      padding: 0.12rem 0.5rem;
+      border-radius: 0.4rem;
+      background: #fff3e6;
+      color: var(--orange-deep);
+    }
+    .stat-chip.stat-good {
+      background: #ecfdf5;
+      color: #059669;
+    }
+
+    /* ===== 卡片网格 ===== */
+    .cards-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 1.1rem;
+    }
+    @media (max-width: 1100px) {
+      .cards-grid { grid-template-columns: repeat(3, 1fr); }
+    }
+    @media (max-width: 768px) {
+      .cards-grid { grid-template-columns: repeat(2, 1fr); gap: 0.8rem; }
+    }
+
+    /* 单张卡片 */
+    .card {
+      background: var(--bg-card);
+      border-radius: var(--radius-lg);
+      overflow: hidden;
+      box-shadow: var(--shadow);
+      transition: var(--transition);
+      display: flex;
+      flex-direction: column;
+    }
+    .card:hover {
+      transform: translateY(-4px);
+      box-shadow: var(--shadow-hover);
+    }
+
+    .card-avatar {
+      position: relative;
+      aspect-ratio: 1 / 1;
+      background: linear-gradient(135deg, #FFF3E6, #FFE0C2);
+      overflow: hidden;
+    }
+    .card-avatar .main-avatar {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      transition: transform 0.4s ease;
+    }
+    .card:hover .main-avatar { transform: scale(1.05); }
+    .avatar-fallback {
+      position: absolute;
+      inset: 0;
+      display: none;
+      align-items: center;
+      justify-content: center;
+      font-size: 3rem;
+      font-weight: 800;
+      color: var(--orange-primary);
+      background: linear-gradient(135deg, #FFF3E6, #FFE0C2);
+    }
+    .game-logos {
+      position: absolute;
+      top: 0.55rem;
+      left: 0.55rem;
+      display: flex;
+      gap: 0.25rem;
+    }
+    .game-logo-item {
+      width: 1.7rem;
+      height: 1.7rem;
+      border-radius: 0.4rem;
+      background: rgba(255,255,255,0.9);
+      padding: 0.1rem;
+      object-fit: contain;
+      box-shadow: 0 2px 6px rgba(0,0,0,0.15);
+    }
+    .card-badges {
+      position: absolute;
+      top: 0.55rem;
+      right: 0.55rem;
+      display: flex;
+      flex-direction: column;
+      gap: 0.3rem;
+      align-items: flex-end;
+    }
+    .tier-badge {
+      font-size: 0.72rem;
+      font-weight: 800;
+      padding: 0.18rem 0.55rem;
+      border-radius: 999px;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.25);
+      letter-spacing: 0.02em;
+    }
+    .omni-badge {
+      font-size: 0.72rem;
+      font-weight: 800;
+      padding: 0.18rem 0.55rem;
+      border-radius: 999px;
+      background: linear-gradient(135deg, #6366f1, #8b5cf6);
+      color: #fff;
+      box-shadow: 0 2px 8px rgba(99,102,241,0.45);
+    }
+
+    .card-body {
+      padding: 0.85rem 0.9rem 1rem;
+      display: flex;
+      flex-direction: column;
+      gap: 0.45rem;
+      flex: 1;
+    }
+    .card-name {
+      font-size: 1.1rem;
+      font-weight: 800;
+      color: var(--text-main);
+    }
+    .card-orders {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.3rem;
+    }
+    .order-tag {
+      font-size: 0.68rem;
+      font-weight: 600;
+      padding: 0.12rem 0.45rem;
+      border-radius: 0.35rem;
+      background: var(--orange-light);
+      color: var(--orange-primary);
+    }
+    .card-signature {
+      font-size: 0.82rem;
+      color: var(--text-sub);
+      line-height: 1.45;
+      display: -webkit-box;
+      -webkit-line-clamp: 1;
+      -webkit-box-orient: vertical;
+      overflow: hidden;
+    }
+    .card-time {
+      font-size: 0.78rem;
+      color: var(--orange-deep);
+      font-weight: 600;
+    }
+    .card-styles {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.25rem;
+    }
+    .style-tag {
+      font-size: 0.68rem;
+      padding: 0.1rem 0.45rem;
+      border-radius: 0.35rem;
+      background: #f3f4f6;
+      color: var(--text-sub);
+    }
+    .card-actions {
+      display: flex;
+      gap: 0.45rem;
+      margin-top: auto;
+      padding-top: 0.45rem;
+    }
+    .btn {
+      flex: 1;
+      text-align: center;
+      font-size: 0.85rem;
+      font-weight: 700;
+      padding: 0.5rem 0.5rem;
+      border-radius: 0.55rem;
+      transition: var(--transition);
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .btn-detail {
+      background: #f3f4f6;
+      color: var(--text-main);
+    }
+    .btn-detail:hover { background: #e5e7eb; }
+    .btn-book {
+      background: linear-gradient(135deg, #FF7A00, #F97316);
+      color: #fff;
+      box-shadow: 0 3px 10px rgba(255,122,0,0.3);
+    }
+    .btn-book:hover { transform: translateY(-1px); box-shadow: 0 5px 14px rgba(255,122,0,0.4); }
+
+    .empty-state {
+      grid-column: 1 / -1;
+      text-align: center;
+      padding: 3rem 1rem;
+      color: rgba(255,255,255,0.5);
+      font-size: 1rem;
+    }
+
+    /* ===== 详情模态框 ===== */
+    .modal-overlay {
+      position: fixed;
+      inset: 0;
+      background: rgba(0,0,0,0.65);
+      backdrop-filter: blur(6px);
+      -webkit-backdrop-filter: blur(6px);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 1rem;
+      z-index: 200;
+      opacity: 0;
+      visibility: hidden;
+      transition: opacity 0.3s ease, visibility 0.3s ease;
+    }
+    .modal-overlay.show {
+      opacity: 1;
+      visibility: visible;
+    }
+    .modal-overlay > * {
+      transform: translateY(1rem) scale(0.98);
+      transition: transform 0.35s cubic-bezier(.2,.8,.2,1);
+    }
+    .modal-overlay.show > * {
+      transform: translateY(0) scale(1);
+    }
+
+    .modal-close {
+      position: absolute;
+      top: 0.6rem;
+      right: 0.6rem;
+      width: 2rem;
+      height: 2rem;
+      border-radius: 50%;
+      background: rgba(0,0,0,0.4);
+      color: #fff;
+      font-size: 1.1rem;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      z-index: 5;
+      transition: var(--transition);
+    }
+    .modal-close:hover { background: rgba(0,0,0,0.7); transform: rotate(90deg); }
+
+    /* 详情弹窗 */
+    .modal-card {
+      background: #fff;
+      border-radius: var(--radius-lg);
+      width: 100%;
+      max-width: 30rem;
+      max-height: 92vh;
+      overflow-y: auto;
+      position: relative;
+      box-shadow: 0 2rem 4rem rgba(0,0,0,0.3);
+    }
+    .modal-banner {
+      position: relative;
+      aspect-ratio: 4 / 3;
+      background: linear-gradient(135deg, #FFF3E6, #FFE0C2);
+      border-radius: var(--radius-lg) var(--radius-lg) 0 0;
+      overflow: hidden;
+    }
+    .modal-banner img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+    .banner-game-logos {
+      position: absolute;
+      bottom: 0.6rem;
+      left: 0.6rem;
+      display: flex;
+      gap: 0.3rem;
+    }
+    .banner-game-logos img {
+      width: 2rem;
+      height: 2rem;
+      border-radius: 0.4rem;
+      background: rgba(255,255,255,0.9);
+      padding: 0.15rem;
+      object-fit: contain;
+      box-shadow: 0 2px 6px rgba(0,0,0,0.2);
+    }
+    .modal-body { padding: 1.2rem 1.3rem 1.5rem; }
+    .modal-name-row {
+      display: flex;
+      align-items: center;
+      gap: 0.6rem;
+      flex-wrap: wrap;
+      margin-bottom: 0.8rem;
+    }
+    .modal-name {
+      font-size: 1.5rem;
+      font-weight: 800;
+    }
+    .modal-badges {
+      display: flex;
+      gap: 0.35rem;
+      flex-wrap: wrap;
+    }
+    .modal-section { margin-bottom: 1rem; }
+    .modal-section-title {
+      font-size: 0.82rem;
+      font-weight: 700;
+      color: var(--text-light);
+      margin-bottom: 0.35rem;
+      padding-left: 0.5rem;
+      border-left: 3px solid var(--orange-primary);
+    }
+    .modal-tags {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.35rem;
+    }
+    .modal-stats {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 0.6rem;
+    }
+    .stat-card {
+      text-align: center;
+      padding: 0.7rem 0.4rem;
+      border-radius: 0.7rem;
+      background: linear-gradient(135deg, #FFF3E6, #FFE0C2);
+      border: 1px solid rgba(255,122,0,0.2);
+    }
+    .stat-card.stat-card-green {
+      background: linear-gradient(135deg, #ECFDF5, #D1FAE5);
+      border-color: rgba(5,150,105,0.2);
+    }
+    .stat-card.stat-card-gold {
+      background: linear-gradient(135deg, #FFFBEB, #FEF3C7);
+      border-color: rgba(245,158,11,0.3);
+    }
+    .stat-card .stat-num {
+      font-size: 1.35rem;
+      font-weight: 800;
+      color: var(--orange-deep);
+      line-height: 1.1;
+    }
+    .stat-card.stat-card-green .stat-num { color: #059669; }
+    .stat-card.stat-card-gold .stat-num { color: #D97706; }
+    .stat-card .stat-label {
+      font-size: 0.72rem;
+      color: var(--text-light);
+      margin-top: 0.15rem;
+    }
+    .game-pill {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.3rem;
+      font-size: 0.8rem;
+      font-weight: 600;
+      padding: 0.25rem 0.6rem;
+      background: var(--orange-light);
+      color: var(--orange-primary);
+      border-radius: 999px;
+    }
+    .game-pill img {
+      width: 1rem;
+      height: 1rem;
+      object-fit: contain;
+    }
+    .modal-time {
+      font-size: 0.9rem;
+      color: var(--orange-deep);
+      font-weight: 600;
+    }
+    .modal-desc {
+      font-size: 0.9rem;
+      color: var(--text-sub);
+      line-height: 1.7;
+    }
+    .audio-wrap {
+      background: var(--orange-light);
+      border-radius: 0.7rem;
+      padding: 0.7rem 0.9rem;
+      margin-top: 0.3rem;
+    }
+    .audio-wrap-title {
+      font-size: 0.8rem;
+      color: var(--orange-primary);
+      font-weight: 600;
+      margin-bottom: 0.4rem;
+    }
+    .audio-player { width: 100%; }
+    .modal-book-btn {
+      display: block;
+      text-align: center;
+      margin-top: 1.2rem;
+      padding: 0.85rem;
+      font-size: 1rem;
+      font-weight: 800;
+      color: #fff;
+      background: linear-gradient(135deg, #FF7A00, #F97316);
+      border-radius: 0.7rem;
+      box-shadow: 0 4px 14px rgba(255,122,0,0.35);
+      transition: var(--transition);
+    }
+    .modal-book-btn:hover { transform: translateY(-2px); box-shadow: 0 6px 18px rgba(255,122,0,0.45); }
+
+    /* 预约话术弹窗 */
+    .booking-modal {
+      background: #fff;
+      border-radius: var(--radius-lg);
+      width: 100%;
+      max-width: 24rem;
+      padding: 1.6rem 1.4rem;
+      position: relative;
+      text-align: center;
+    }
+    .booking-title {
+      font-size: 1.3rem;
+      font-weight: 800;
+      margin-bottom: 0.3rem;
+    }
+    .booking-subtitle {
+      font-size: 0.85rem;
+      color: var(--text-sub);
+      margin-bottom: 1rem;
+    }
+    .booking-message {
+      background: var(--orange-light);
+      border: 1px dashed var(--orange-primary);
+      border-radius: 0.7rem;
+      padding: 0.9rem;
+      font-size: 1rem;
+      font-weight: 600;
+      color: var(--orange-deep);
+      margin-bottom: 1.1rem;
+      word-break: break-all;
+    }
+    .booking-modal .btn-book {
+      width: 100%;
+      padding: 0.8rem;
+      font-size: 0.95rem;
+    }
+    .booking-modal .btn-book:disabled {
+      opacity: 0.65;
+      cursor: not-allowed;
+    }
+    .booking-tip {
+      font-size: 0.8rem;
+      color: var(--text-light);
+      margin-top: 0.7rem;
+    }
+
+    /* 客服二维码弹窗 */
+    .qrcode-modal {
+      background: #fff;
+      border-radius: var(--radius-lg);
+      width: 100%;
+      max-width: 22rem;
+      padding: 1.6rem 1.4rem;
+      position: relative;
+      text-align: center;
+    }
+    .qrcode-title {
+      font-size: 1.2rem;
+      font-weight: 800;
+      margin-bottom: 1rem;
+    }
+    .qrcode-img-wrap {
+      width: 14rem;
+      height: 14rem;
+      margin: 0 auto 1rem;
+      border-radius: 0.8rem;
+      overflow: hidden;
+      background: #f9fafb;
+      border: 1px solid var(--border);
+      position: relative;
+    }
+    .qrcode-img-wrap img {
+      width: 100%;
+      height: 100%;
+      object-fit: contain;
+    }
+    .qrcode-fallback {
+      position: absolute;
+      inset: 0;
+      display: none;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 0.3rem;
+      color: var(--text-light);
+      font-size: 0.9rem;
+    }
+    .qrcode-fallback-icon { font-size: 2rem; }
+    .qrcode-fallback-sub { font-size: 0.78rem; }
+    .qrcode-shift {
+      font-size: 0.9rem;
+      font-weight: 700;
+      color: var(--orange-primary);
+      margin-bottom: 0.5rem;
+    }
+    .qrcode-tip {
+      font-size: 0.8rem;
+      color: var(--text-sub);
+    }
+
+    /* ===== 页脚 ===== */
+    .footer {
+      background: #0a0a0f;
+      color: rgba(255,255,255,0.6);
+      text-align: center;
+      padding: 2rem 1rem;
+      margin-top: 2rem;
+    }
+    .footer .footer-inner {
+      max-width: 600px;
+      margin: 0 auto;
+    }
+    .footer .brand-logo {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 0.5rem;
+      margin-bottom: 0.6rem;
+      font-size: 1.1rem;
+      font-weight: 800;
+      color: #fff;
+    }
+    .footer .brand-logo img {
+      width: 1.8rem;
+      height: 1.8rem;
+      border-radius: 0.4rem;
+    }
+    .footer p {
+      font-size: 0.82rem;
+      margin-bottom: 0.3rem;
+    }
+    .footer .copyright {
+      font-size: 0.72rem;
+      margin-top: 0.6rem;
+      opacity: 0.5;
+    }
+    .footer span { color: var(--orange-primary); }
+
+    @media (max-width: 768px) {
+      .section-header .section-title { font-size: 1.3rem; }
+      .section-header .section-logo { width: 2.6rem; height: 2.6rem; }
+    }
+  </style>
+</head>
+<body>
+  <!-- 导航 -->
+  <nav class="navbar">
+    <div class="brand-logo">
+      <img src="./logo.png" alt="橙猫猫电竞" onerror="this.style.display='none'" />
+      <span class="brand-name">橙猫猫电竞</span>
+    </div>
+    <a class="nav-back" href="index.html">‹ 返回价格表</a>
+  </nav>
+
+  <!-- 主区 -->
+  <main class="page-main">
+    <!-- 专区标题 -->
+    <div class="section-header">
+      <img class="section-logo" id="sectionLogo" src="" alt="" onerror="this.style.display='none'" />
+      <div>
+        <div class="section-title" id="sectionTitle">优质陪玩展示</div>
+        <div class="section-sub" id="sectionSub">为你精选优质陪玩搭子</div>
+      </div>
+      <div class="section-count" id="sectionCount">0 位</div>
+    </div>
+
+    <!-- 游戏分区筛选 + 排序切换 -->
+    <div class="filter-row">
+      <div class="filter-bar" id="filterBar"></div>
+      <div class="sort-bar" id="sortBar">
+        <span class="sort-label">排序</span>
+        <button class="sort-chip active" data-sort="tier">等级优先</button>
+        <button class="sort-chip" data-sort="hot">人气优先</button>
+      </div>
+    </div>
+
+    <!-- 卡片网格 -->
+    <div class="cards-grid" id="cardsGrid"></div>
+  </main>
+
+  <!-- 详情模态框 -->
+  <div class="modal-overlay" id="modalOverlay">
+    <div class="modal-card">
+      <button class="modal-close" id="modalClose">×</button>
+      <div class="modal-banner" id="modalBanner"></div>
+      <div class="modal-body">
+        <div class="modal-name-row">
+          <div class="modal-name" id="modalName"></div>
+          <div class="modal-badges" id="modalBadges"></div>
+        </div>
+        <div class="modal-section">
+          <div class="modal-section-title">可接游戏</div>
+          <div class="modal-tags" id="modalGames"></div>
+        </div>
+        <div class="modal-section">
+          <div class="modal-section-title">可接订单</div>
+          <div class="modal-tags" id="modalOrders"></div>
+        </div>
+        <div class="modal-section">
+          <div class="modal-section-title">可接单时间</div>
+          <div class="modal-time" id="modalTime"></div>
+        </div>
+        <div class="modal-section">
+          <div class="modal-section-title">人气数据</div>
+          <div class="modal-stats" id="modalStats"></div>
+        </div>
+        <div class="modal-section">
+          <div class="modal-section-title">风格特点</div>
+          <div class="modal-tags" id="modalStyles"></div>
+        </div>
+        <div class="modal-section">
+          <div class="modal-section-title">个人介绍</div>
+          <div class="modal-desc" id="modalDesc"></div>
+        </div>
+        <div class="modal-section">
+          <div class="modal-section-title">语音试听</div>
+          <div class="audio-wrap">
+            <div class="audio-wrap-title">🎧 先听听，合适再下单～</div>
+            <audio class="audio-player" id="modalAudio" controls preload="none"></audio>
+          </div>
+        </div>
+        <a class="modal-book-btn" id="modalBookBtn" href="#">🔥 立即预约，上车开黑</a>
+      </div>
+    </div>
+  </div>
+
+  <!-- 客服二维码弹窗 -->
+  <div class="modal-overlay" id="qrcodeOverlay">
+    <div class="qrcode-modal">
+      <button class="modal-close" id="qrcodeClose">×</button>
+      <div class="qrcode-title">请添加客服微信</div>
+      <div class="qrcode-img-wrap">
+        <img id="qrcodeImg" src="" alt="客服二维码" />
+        <div class="qrcode-fallback" id="qrcodeFallback">
+          <div class="qrcode-fallback-icon">📷</div>
+          <div>二维码加载失败</div>
+          <div class="qrcode-fallback-sub">请稍后重试或联系管理员</div>
+        </div>
+      </div>
+      <div class="qrcode-shift" id="qrcodeShift"></div>
+      <div class="qrcode-tip">长按或扫描二维码，添加对应班次客服</div>
+    </div>
+  </div>
+
+  <!-- 预约话术弹窗 -->
+  <div class="modal-overlay" id="bookingOverlay">
+    <div class="booking-modal">
+      <button class="modal-close" id="bookingClose">×</button>
+      <div class="booking-title">预约 <span id="bookingPlayerName"></span></div>
+      <div class="booking-subtitle">已为你生成专属预约话术</div>
+      <div class="booking-message" id="bookingMessage"></div>
+      <button class="btn btn-book btn-copy" id="bookingCopyBtn" onclick="handleCopyAndContact()">复制并联系客服</button>
+      <div class="booking-tip" id="bookingTip">点击下方按钮，一键复制话术并联系客服</div>
+    </div>
+  </div>
+
+  <!-- 页脚 -->
+  <footer class="footer">
+    <div class="footer-inner">
+      <div class="brand-logo">
+        <img src="./logo.png" alt="橙猫猫电竞" onerror="this.style.display='none'" />
+        <span>橙猫猫电竞</span>
+      </div>
+      <p>专业陪玩 · 快乐上分 · 心态好 · 不压力</p>
+      <p>陪你打游戏 · 陪你看风景 · <span>陪你赢到天明</span></p>
+      <div class="copyright">© 2026 橙猫猫电竞 Orange Cat E-Sports · All Rights Reserved</div>
+    </div>
+  </footer>
+
+  <script>
+    // ===== 客服微信二维码（按时间段分发）=====
+    const SHIFT_QRCODES = {
+      "早班": { img: "./kefu/early.png", label: "早班客服（00:00-08:00）" },
+      "白班": { img: "./kefu/day.png", label: "白班客服（08:00-16:00）" },
+      "晚班": { img: "./kefu/night.png", label: "晚班客服（16:00-24:00）" }
+    };
+
+    function getBookingInfo() {
+      const h = new Date().getHours();
+      if (h >= 0 && h < 8)  return { shift: "早班", ...SHIFT_QRCODES["早班"] };
+      if (h >= 8 && h < 16) return { shift: "白班", ...SHIFT_QRCODES["白班"] };
+      return { shift: "晚班", ...SHIFT_QRCODES["晚班"] };
+    }
+
+    function openQrcodeModal() {
+      const info = getBookingInfo();
+      const overlay = document.getElementById("qrcodeOverlay");
+      const img = document.getElementById("qrcodeImg");
+      const fallback = document.getElementById("qrcodeFallback");
+      const shiftLabel = document.getElementById("qrcodeShift");
+      img.src = info.img;
+      img.alt = info.label;
+      img.style.display = "block";
+      fallback.style.display = "none";
+      img.onerror = function() {
+        this.style.display = "none";
+        fallback.style.display = "flex";
+      };
+      shiftLabel.textContent = info.label;
+      overlay.classList.add("show");
+    }
+
+    function closeQrcodeModal() {
+      document.getElementById("qrcodeOverlay").classList.remove("show");
+    }
+
+    // ===== 预约话术弹窗 =====
+    function buildBookingMessage(playerName) {
+      const now = new Date();
+      const hh = String(now.getHours()).padStart(2, "0");
+      const mm = String(now.getMinutes()).padStart(2, "0");
+      return `我想约【${playerName}】，现在有空吗？（${hh}:${mm}）`;
+    }
+
+    function openBookingModal(playerName) {
+      const overlay = document.getElementById("bookingOverlay");
+      const msgEl = document.getElementById("bookingMessage");
+      const nameEl = document.getElementById("bookingPlayerName");
+      const btn = document.getElementById("bookingCopyBtn");
+      const tip = document.getElementById("bookingTip");
+      if (!overlay || !msgEl) return;
+      const msg = buildBookingMessage(playerName);
+      msgEl.textContent = msg;
+      nameEl.textContent = playerName;
+      btn.dataset.msg = msg;
+      tip.textContent = "点击下方按钮，一键复制话术并联系客服";
+      btn.disabled = false;
+      btn.textContent = "复制并联系客服";
+      overlay.classList.add("show");
+    }
+
+    function closeBookingModal() {
+      document.getElementById("bookingOverlay").classList.remove("show");
+    }
+
+    function copyTextToClipboard(text) {
+      if (navigator.clipboard && window.isSecureContext) {
+        return navigator.clipboard.writeText(text);
+      }
+      return new Promise((resolve, reject) => {
+        const ta = document.createElement("textarea");
+        ta.value = text;
+        ta.style.position = "fixed";
+        ta.style.left = "-9999px";
+        ta.style.top = "0";
+        document.body.appendChild(ta);
+        ta.focus();
+        ta.select();
+        try { document.execCommand("copy"); resolve(); }
+        catch (e) { reject(e); }
+        finally { document.body.removeChild(ta); }
+      });
+    }
+
+    function handleCopyAndContact() {
+      const btn = document.getElementById("bookingCopyBtn");
+      const tip = document.getElementById("bookingTip");
+      const msg = btn.dataset.msg || "";
+      copyTextToClipboard(msg).then(() => {
+        tip.textContent = "✅ 话术已复制！正在打开客服二维码…";
+        btn.disabled = true;
+        btn.textContent = "已复制，正在弹出客服…";
+        setTimeout(() => {
+          closeBookingModal();
+          openQrcodeModal();
+          setTimeout(() => {
+            btn.disabled = false;
+            btn.textContent = "复制并联系客服";
+          }, 600);
+        }, 700);
+      }).catch(() => {
+        tip.innerHTML = "复制失败，请手动长按下方话术复制：<br><br>" + msg;
+        btn.disabled = true;
+        btn.textContent = "已展示话术，请手动复制";
+      });
+    }
+
+    // ===== 游戏 Logo 映射 =====
+    const gameLogos = {
+      "无畏契约": "./gamelogo/Valorant.webp",
+      "永劫无间": "./gamelogo/Naraka.webp",
+      "三角洲行动": "./gamelogo/Delta Force.webp",
+      "steam热门游戏": "./gamelogo/steam.webp"
+    };
+
+    // ===== 等级体系 =====
+    const TIER_ORDER = ["明星", "魔王", "金牌", "技术", "娱乐"];
+    const TIER_BADGES = ["明星", "魔王", "金牌"];
+    const TIER_STYLES = {
+      "明星": { bg: "linear-gradient(135deg,#FF69B4,#FFD700)", color: "#fff" },
+      "魔王": { bg: "linear-gradient(135deg,#8B0000,#FF4500)", color: "#fff" },
+      "金牌": { bg: "linear-gradient(135deg,#FFB300,#FF7A00)", color: "#3A1A00" }
+    };
+
+    const ALL_GAMES = ["无畏契约", "永劫无间", "三角洲行动"];
+    function isOmni(p) {
+      return ALL_GAMES.every(g => p.games.includes(g));
+    }
+
+    function tierRank(tier) {
+      const idx = TIER_ORDER.indexOf(tier);
+      return idx === -1 ? TIER_ORDER.length : idx;
+    }
+
+    // ===== 陪玩数据（与 index.html 完全一致，请保持同步）=====
+    // weeklyOrders : 上周接单量（用于人气排序，数字越大越热门）
+    // rating       : 好评率（百分比 0-100，数值越高口碑越好）
+    // 综合人气分 = 上周接单量 × (好评率 / 100)，用于同等级内的二级排序
+    const players = [
+      { id: 1, name: "鸽子", games: ["永劫无间","steam热门游戏"], styles: ["青叔音", "娱乐局", "不压力"], orders: ["永劫无间技术","steam热门游戏"], tier: "技术", avatar: "./avatars/gezi.jpg", signature: "泥真的要点一单客服嘛", description: "主玩永劫无间三排天选模式，擅长长剑+阔刀，团队意识拉满。语音成熟稳重，心态好不压力，带你稳定吃鸡。", availableTime: "每日 18:00 - 02:00", audio: "./audio/gezi.mp3", weeklyOrders: 45, rating: 98 },
+      { id: 2, name: "雨眠", games: ["永劫无间"], styles: ["萝莉音", "温柔音", "娱乐局"], orders: ["永劫无间娱乐"], tier: "娱乐", avatar: "./avatars/yumian.jpg", signature: "甜萌萝莉音，双区娱乐全程陪", description: "永劫无间主玩玉玲珑/殷紫萍，声音软萌，会撒娇会鼓励，陪玩体验拉满，会配合会拉扯，情绪稳定，温柔的情绪树洞", availableTime: "每日 21:00 - 6:00", audio: "./audio/yumian.mp3", weeklyOrders: 38, rating: 99 },
+      { id: 3, name: "QQ", games: ["永劫无间"], styles: ["御姐音", "娱乐局", "不压力"], orders: ["永劫无间娱乐"], tier: "娱乐", avatar: "./avatars/qq.jpg", signature: "永劫无间娱乐御姐音，边玩边聊超快乐", description: "永劫无间三排/单排皆可，主打轻松愉快的陪伴体验。熟练胡桃/无尘，治疗与支援到位。陪你唠嗑、听歌、下饭，气氛活跃不冷场。", availableTime: "每日 19:00 - 01:00", audio: "./audio/qq.mp3", weeklyOrders: 32, rating: 96 },
+      { id: 4, name: "巴掌印", games: ["无畏契约","永劫无间","三角洲行动","steam热门游戏"], styles: ["御姐音", "娱乐局"], orders: ["永劫无间娱乐","无畏契约娱乐", "三角洲机密娱乐","steam热门游戏"], tier: "娱乐", avatar: "./avatars/bazhangyin.jpg", signature: "三区全能御姐，瓦洲机密向导", description: "心态好脾气好不矫情，无敌尬聊王，偶尔小c ，瓦除一突所有位置可补，洲主玩支援/信息，对枪打得过保护你，打不过保佑你，劫主二号位/三号位，老板指哪打哪绝对听从老板指挥! ", availableTime: "全天可约", audio: "./audio/bazhangyin.mp3", weeklyOrders: 52, rating: 99 },
+      { id: 5, name: "小白", games: ["三角洲行动"], styles: ["萝莉音", "娱乐局", "温柔音"], orders: ["三角洲机密娱乐"], tier: "娱乐", avatar: "./avatars/xiaobai.jpg", signature: "三角洲小白妹妹，机密行动安全撤离专家", description: "三角洲行动主玩医疗+支援兵种，熟悉机密地图。会帮你搜刮物资、规划撤离路线、危险时第一时间救援。语音软萌，陪玩体验超舒适。", availableTime: "不固定时间", audio: "./audio/xiaobai.mp3", weeklyOrders: 28, rating: 98 },
+      { id: 6, name: "临沐", games: ["无畏契约", "三角洲行动","steam热门游戏"], styles: ["青叔音", "纯武将"], orders: ["无畏契约娱乐", "三角洲绝密技术","steam热门游戏"], tier: "金牌", avatar: "./avatars/linmu.jpg", signature: "三角洲全能补位，瓦区哨位精通", description: "无畏契约主玩哨位，残局兜底的神。三角洲主玩一号位，先打懦夫后打药，二字欧美一字猖！", availableTime: "每日 20:00 - 03:00", audio: "./audio/linmu.mp3", weeklyOrders: 41, rating: 99 },
+      { id: 7, name: "阿鹤", games: ["永劫无间", "三角洲行动","steam热门游戏"], styles: ["温柔音","教学型","不压力"], orders: ["永劫无间娱乐", "三角洲绝密技术","steam热门游戏"], tier: "金牌", avatar: "./avatars/ahe.jpg", signature: "永劫变身拆火，三角洲全能干员，稳中带秀", description: "永劫无间主玩变身系英雄（大佛、沈妙、岳山），三角洲全干员教学。全点位教学，全地图教学，猛攻跑刀，全局思路教学，全玩法教学，大红刷新点位，房卡点位教学。团队型选手，稳中带秀，能抗能打能策应。", availableTime: "每日 18:00 - 23:59", audio: "./audio/ahe.mp3", weeklyOrders: 65, rating: 99 },
+      { id: 8, name: "小憋", games: ["永劫无间"], styles: ["极品破碎屌丝音", "战斗型", "上分"], orders: ["永劫无间技术"], tier: "魔王", avatar: "./avatars/xiaobie.jpg", signature: "想不想看看火男玩家们在干什么", description: "永劫无间单排天人前百，你的三排v2狂战火老公", availableTime: "每日 21:00 - 06:00", audio: "./audio/xiaobie.mp3", weeklyOrders: 48, rating: 99 },
+      { id: 9, name: "莫遮", games: ["永劫无间", "三角洲行动","steam热门游戏"], styles: ["咖啡因", "温柔音"], orders: ["永劫无间娱乐", "三角洲机密娱乐"], tier: "娱乐", avatar: "./avatars/mozhe.jpg", signature: "双区娱乐+机密，节奏稳心态好", description: "永劫主玩岳山，给队友配合。三角洲主玩信息位，熟悉机密各地图打法思路。心态好，爆点沟通积极。", availableTime: "每日 16:00 - 00:00", audio: "./audio/mozhe.mp3", weeklyOrders: 30, rating: 95 },
+      { id: 10, name: "楠平", games: ["永劫无间"], styles: ["青年音", "不压力", "娱乐局"], orders: ["永劫无间娱乐"], tier: "娱乐", avatar: "./avatars/nanping.jpg", signature: "永劫无间美人鱼叔叔，陪你聊陪你玩", description: "永劫无间娱乐局常客，熟悉所有英雄。主打陪伴氛围，节奏轻松，边打边唠嗑。适合想放松、找个搭子聊天开黑的玩家。", availableTime: "每日 13:00 - 23:00", audio: "./audio/nanping.mp3", weeklyOrders: 35, rating: 97 },
+      { id: 11, name: "丸子", games: ["无畏契约", "三角洲行动","steam热门游戏"], styles: ["少女音", "娱乐局", "温柔音"], orders: ["无畏契约娱乐", "三角洲机密娱乐","steam热门游戏"], tier: "娱乐", avatar: "./avatars/wanzi.jpg", signature: "瓦洲双修，元气少女", description: "无畏契约主玩烟位、哨位，三角洲主玩蜂医、麦晓雯（喜欢跑刀的囤囤鼠一枚呀），元气少女音，活泼嘴甜有分寸", availableTime: "每日 15:00 - 01:00", audio: "./audio/wanzi.mp3", weeklyOrders: 56, rating: 100 },
+      { id: 12, name: "小波", games: ["永劫无间"], styles: ["青年音", "娱乐局", "不压力"], orders: ["永劫无间娱乐"], tier: "娱乐", avatar: "./avatars/xiaobo.jpg", signature: "劫区快乐小波，下饭操作超有梗", description: "永劫无间娱乐局常驻，主玩各种冷门英雄也能秀。操作飘逸，话痨会整活，一把游戏笑点不断，适合想开心放松的你。", availableTime: "每日 17:00 - 02:00", audio: "./audio/xiaobo.mp3", weeklyOrders: 26, rating: 95 },
+      { id: 13, name: "三笠", games: ["无畏契约"], styles: ["青叔音", "娱乐局", "不压力"], orders: ["无畏契约娱乐"], tier: "娱乐", avatar: "./avatars/sanli.jpg", signature: "瓦区休闲搭子，娱乐排位两不误", description: "无畏契约位置全能，缺什么补什么。擅长分析对方敌人，处理与信息沟通。节奏不紧不慢，陪您一局接一局，有唱歌才艺。", availableTime: "每日 18:00 - 00:00", audio: "./audio/sanli.mp3", weeklyOrders: 33, rating: 97 },
+      { id: 14, name: "苹果", games: ["永劫无间"], styles: ["青叔音", "指挥型", "上分"], orders: ["永劫无间技术"], tier: "技术", avatar: "./avatars/pingguo.jpg", signature: "主战马会球弓三排国服刘炼，可教学，克烈小迷弟", description: "十分温柔从不压力人（不破防）可指挥的打，主玩三排想提升三排存活能力、思路、伤害、奶量、拉扯的可以边打边教学", availableTime: "每日 12:00 - 23:59", audio: "./audio/pingguo.mp3", weeklyOrders: 39, rating: 98 },
+      { id: 15, name: "小运", games: ["永劫无间"], styles: ["青年音", "战斗型", "指挥型"], orders: ["永劫无间技术"], tier: "技术", avatar: "./avatars/xiaoyun.jpg", signature: "国服沙男，单排导师精通蓝白博弈", description: "永劫无间国服前100，精通双截棍，长棍，太刀，会抖枪术一些技巧。适合想冲段位、学英雄的玩家。", availableTime: "每日 20:00 - 02:00", audio: "./audio/xiaoyun.mp3", weeklyOrders: 37, rating: 99 },
+      { id: 16, name: "礼拜六", games: ["无畏契约","永劫无间","三角洲行动","steam热门游戏"], styles: ["青年音", "不压力"], orders: ["永劫无间娱乐","无畏契约技术", "三角洲机密娱乐","steam热门游戏"], tier: "技术", avatar: "./avatars/libailiu.jpg", signature: "永劫冰女狐狸，瓦霓虹，三角洲张姐。话多不高冷，打得过我的不多，打不过我的懒得打", description: "永劫冰女狐狸控场拉扯，瓦霓虹跑轰突破，三角洲张姐正面硬刚，每款都有绝活。话多不冷场，素质高不压力，输了复盘不甩锅。至于那些打不过我的——我更是懒得打", availableTime: "每日 14:00 - 23:00", audio: "./audio/libailiu.mp3", weeklyOrders: 50, rating: 99 },
+      { id: 17, name: "蝴蝶湖", games: ["永劫无间"], styles: ["青年音", "不压力"], orders: ["永劫无间技术"], tier: "金牌", avatar: "./avatars/hudiehu.jpg", signature: "永劫无间陪练，段位代打｜，高效上分，技术娱乐都可以", description: "永劫无间排位上分、可接单排、三排、双排陪，沟通顺畅。", availableTime: "每日 16:00 - 23:59", audio: "./audio/hudiehu.mp3", weeklyOrders: 43, rating: 98 },
+    ];
+
+    // ===== 综合人气分 = 上周接单量 × (好评率 / 100) =====
+    // 综合分越高越靠前（仅在相同等级内作为二级排序依据）
+    function popularityScore(p) {
+      const orders = p.weeklyOrders || 0;
+      const rating = p.rating || 0;
+      return orders * (rating / 100);
+    }
+
+    // ===== 渲染单张卡片 =====
+    function buildCardHtml(p) {
+      const logosHtml = p.games.map(g =>
+        `<img class="game-logo-item" src="${gameLogos[g]}" alt="${g}" title="${g}" onerror="this.style.display='none'">`
+      ).join("");
+      const stylesHtml = p.styles.map(s => `<span class="style-tag">${s}</span>`).join("");
+      const ordersHtml = p.orders.map(o => `<span class="order-tag">${o}</span>`).join("");
+      let badgesHtml = "";
+      if (TIER_BADGES.includes(p.tier)) {
+        const ts = TIER_STYLES[p.tier];
+        badgesHtml += `<span class="tier-badge" style="background:${ts.bg};color:${ts.color}">${p.tier}</span>`;
+      }
+      if (isOmni(p)) {
+        badgesHtml += `<span class="omni-badge">全能</span>`;
+      }
+      const badgesWrap = badgesHtml ? `<div class="card-badges">${badgesHtml}</div>` : "";
+      return `
+        <div class="card">
+          <div class="card-avatar">
+            <div class="game-logos">${logosHtml}</div>
+            <img class="main-avatar" src="${p.avatar}" alt="${p.name}" loading="lazy"
+                 onerror="this.style.display='none';this.parentElement.querySelector('.avatar-fallback')&&(this.parentElement.querySelector('.avatar-fallback').style.display='flex')">
+            <div class="avatar-fallback" style="display:none;">${p.name.charAt(0)}</div>
+            ${badgesWrap}
+          </div>
+          <div class="card-body">
+            <div class="card-name">${p.name}</div>
+            <div class="card-stats">
+              <span class="stat-chip">🔥 上周 ${p.weeklyOrders || 0} 单</span>
+              <span class="stat-chip stat-good">👍 好评 ${p.rating || 0}%</span>
+            </div>
+            <div class="card-orders">${ordersHtml}</div>
+            <div class="card-signature">${p.signature}</div>
+            <div class="card-time">⏰ ${p.availableTime || "时间未定"}</div>
+            <div class="card-styles">${stylesHtml}</div>
+            <div class="card-actions">
+              <button class="btn btn-detail" data-id="${p.id}">查看详情</button>
+              <a class="btn btn-book" href="javascript:void(0)" onclick="openBookingModal('${p.name}')">立即预约</a>
+            </div>
+          </div>
+        </div>
+      `;
+    }
+
+    // ===== 排序方式 =====
+    // sortMode: "tier"   = 等级优先（明星>魔王>金牌>技术>娱乐），同级内按综合人气分降序
+    //           "hot"    = 人气优先（综合人气分降序，忽略等级）
+    let sortMode = "tier";
+
+    // ===== 渲染卡片到容器 =====
+    function renderCards(list, container) {
+      if (!container) return;
+      if (!list || list.length === 0) {
+        container.innerHTML = '<div class="empty-state">暂无该专区陪玩</div>';
+        return;
+      }
+      // 排序：等级优先模式先按等级分组，组内按综合人气分降序
+      //       人气优先模式直接按综合人气分降序
+      list = [...list].sort((a, b) => {
+        if (sortMode === "hot") {
+          return popularityScore(b) - popularityScore(a);
+        }
+        // tier 模式：先比等级，等级相同再比综合人气分
+        const tr = tierRank(a.tier) - tierRank(b.tier);
+        if (tr !== 0) return tr;
+        return popularityScore(b) - popularityScore(a);
+      });
+      container.innerHTML = list.map(buildCardHtml).join("");
+      container.querySelectorAll(".btn-detail").forEach(btn => {
+        btn.addEventListener("click", () => {
+          const id = parseInt(btn.dataset.id, 10);
+          openModal(id);
+        });
+      });
+    }
+
+    // ===== 详情模态框 =====
+    const modalOverlay = document.getElementById("modalOverlay");
+    const modalClose = document.getElementById("modalClose");
+    const modalBanner = document.getElementById("modalBanner");
+    const modalName = document.getElementById("modalName");
+    const modalBadges = document.getElementById("modalBadges");
+    const modalStyles = document.getElementById("modalStyles");
+    const modalGames = document.getElementById("modalGames");
+    const modalOrders = document.getElementById("modalOrders");
+    const modalDesc = document.getElementById("modalDesc");
+    const modalAudio = document.getElementById("modalAudio");
+    const modalBookBtn = document.getElementById("modalBookBtn");
+
+    function openModal(id) {
+      const p = players.find(x => x.id === id);
+      if (!p) return;
+      modalName.textContent = p.name;
+      let mBadges = "";
+      if (TIER_BADGES.includes(p.tier)) {
+        const ts = TIER_STYLES[p.tier];
+        mBadges += `<span class="tier-badge" style="background:${ts.bg};color:${ts.color}">${p.tier}</span>`;
+      }
+      if (isOmni(p)) {
+        mBadges += `<span class="omni-badge">全能</span>`;
+      }
+      modalBadges.innerHTML = mBadges;
+      modalStyles.innerHTML = p.styles.map(s => `<span class="style-tag">${s}</span>`).join("");
+      modalOrders.innerHTML = p.orders.map(o => `<span class="order-tag">${o}</span>`).join("");
+      modalGames.innerHTML = p.games.map(g =>
+        `<span class="game-pill"><img src="${gameLogos[g]}" alt="${g}" onerror="this.style.display='none'">${g}</span>`
+      ).join("");
+      const modalTime = document.getElementById("modalTime");
+      if (modalTime) modalTime.textContent = p.availableTime || "时间未定，请咨询客服";
+
+      // 人气数据：上周接单量 + 好评率 + 综合人气分
+      const modalStats = document.getElementById("modalStats");
+      if (modalStats) {
+        const score = popularityScore(p).toFixed(1);
+        modalStats.innerHTML = `
+          <div class="stat-card"><div class="stat-num">${p.weeklyOrders || 0}</div><div class="stat-label">上周接单</div></div>
+          <div class="stat-card stat-card-green"><div class="stat-num">${p.rating || 0}%</div><div class="stat-label">好评率</div></div>
+          <div class="stat-card stat-card-gold"><div class="stat-num">${score}</div><div class="stat-label">综合人气</div></div>
+        `;
+      }
+      modalDesc.textContent = p.description;
+      const bookPlayerName = p.name;
+      modalBookBtn.href = "javascript:void(0)";
+      modalBookBtn.onclick = function(e) {
+        e.preventDefault();
+        openBookingModal(bookPlayerName);
+      };
+      const bannerLogosHtml = p.games.map(g =>
+        `<img src="${gameLogos[g]}" alt="${g}" title="${g}" onerror="this.style.display='none'">`
+      ).join("");
+      modalBanner.innerHTML = `
+        <img src="${p.avatar}" alt="${p.name}"
+             onerror="this.style.display='none';this.parentElement.textContent='${p.name.charAt(0)}'">
+        <div class="banner-game-logos">${bannerLogosHtml}</div>
+      `;
+      modalAudio.src = p.audio;
+      modalAudio.load();
+      modalOverlay.classList.add("show");
+      document.body.style.overflow = "hidden";
+    }
+
+    function closeModal() {
+      modalOverlay.classList.remove("show");
+      document.body.style.overflow = "";
+      modalAudio.pause();
+    }
+
+    modalClose.addEventListener("click", closeModal);
+    modalOverlay.addEventListener("click", (e) => {
+      if (e.target === modalOverlay) closeModal();
+    });
+    document.getElementById("bookingClose").addEventListener("click", closeBookingModal);
+    document.getElementById("bookingOverlay").addEventListener("click", (e) => {
+      if (e.target === document.getElementById("bookingOverlay")) closeBookingModal();
+    });
+    document.getElementById("qrcodeClose").addEventListener("click", closeQrcodeModal);
+    document.getElementById("qrcodeOverlay").addEventListener("click", (e) => {
+      if (e.target === document.getElementById("qrcodeOverlay")) closeQrcodeModal();
+    });
+    document.addEventListener("keydown", (e) => {
+      if (e.key === "Escape") {
+        closeModal();
+        closeBookingModal();
+        closeQrcodeModal();
+      }
+    });
+
+    // ============================================================
+    //   页面初始化：读取 URL 参数 ?game=xxx 自动筛选对应专区
+    // ============================================================
+    // 支持的游戏专区列表（与 index.html 的 4 个专区对应）
+    const GAME_SECTIONS = ["无畏契约", "永劫无间", "三角洲行动", "steam热门游戏"];
+
+    function getQueryParam(name) {
+      const params = new URLSearchParams(window.location.search);
+      return params.get(name);
+    }
+
+    let currentGame = "全部";
+
+    function applyFilter(game) {
+      currentGame = game;
+      const cardsGrid = document.getElementById("cardsGrid");
+      const sectionTitle = document.getElementById("sectionTitle");
+      const sectionSub = document.getElementById("sectionSub");
+      const sectionCount = document.getElementById("sectionCount");
+      const sectionLogo = document.getElementById("sectionLogo");
+
+      // 筛选
+      const list = (game === "全部") ? players : players.filter(p => p.games.includes(game));
+      renderCards(list, cardsGrid);
+
+      // 更新专区标题
+      if (game === "全部") {
+        sectionTitle.textContent = "优质陪玩展示";
+        sectionSub.textContent = "为你精选优质陪玩搭子";
+        sectionLogo.style.display = "none";
+      } else {
+        sectionTitle.textContent = game + " · 陪玩专区";
+        sectionSub.textContent = `共 ${list.length} 位认证陪玩可接单，挑一个你喜欢的搭子～`;
+        if (gameLogos[game]) {
+          sectionLogo.src = gameLogos[game];
+          sectionLogo.alt = game;
+          sectionLogo.style.display = "block";
+        } else {
+          sectionLogo.style.display = "none";
+        }
+      }
+      sectionCount.textContent = `${list.length} 位`;
+
+      // 更新筛选条高亮
+      document.querySelectorAll(".filter-chip").forEach(chip => {
+        chip.classList.toggle("active", chip.dataset.game === game);
+      });
+
+      // 同步 URL（方便分享/刷新保留筛选）
+      const url = new URL(window.location.href);
+      if (game === "全部") {
+        url.searchParams.delete("game");
+      } else {
+        url.searchParams.set("game", game);
+      }
+      window.history.replaceState({}, "", url);
+    }
+
+    function renderFilterBar() {
+      const bar = document.getElementById("filterBar");
+      const chips = ["全部", ...GAME_SECTIONS];
+      bar.innerHTML = chips.map(g =>
+        `<button class="filter-chip ${g === currentGame ? 'active' : ''}" data-game="${g}">${g}</button>`
+      ).join("");
+      bar.querySelectorAll(".filter-chip").forEach(chip => {
+        chip.addEventListener("click", () => applyFilter(chip.dataset.game));
+      });
+    }
+
+    // ===== 切换排序方式 =====
+    function setSortMode(mode) {
+      sortMode = mode;
+      document.querySelectorAll(".sort-chip").forEach(chip => {
+        chip.classList.toggle("active", chip.dataset.sort === mode);
+      });
+      applyFilter(currentGame);
+    }
+
+    // ===== 启动 =====
+    (function init() {
+      // 从 URL 读取游戏参数，自动筛选对应专区陪玩
+      const gameParam = getQueryParam("game");
+      currentGame = (gameParam && GAME_SECTIONS.includes(gameParam)) ? gameParam : "全部";
+      renderFilterBar();
+      // 排序按钮事件
+      document.querySelectorAll(".sort-chip").forEach(chip => {
+        chip.addEventListener("click", () => setSortMode(chip.dataset.sort));
+      });
+      applyFilter(currentGame);
+    })();
+  </script>
+</body>
+</html>
