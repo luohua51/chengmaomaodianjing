@@ -843,17 +843,16 @@
   <div class="modal-overlay" id="qrcodeOverlay">
     <div class="qrcode-modal">
       <button class="modal-close" id="qrcodeClose">×</button>
-      <div class="qrcode-title">请添加客服微信</div>
+      <div class="qrcode-title">扫码进入接待群</div>
       <div class="qrcode-img-wrap">
-        <img id="qrcodeImg" src="" alt="客服二维码" />
+        <img id="qrcodeImg" src="" alt="接待群二维码" />
         <div class="qrcode-fallback" id="qrcodeFallback">
           <div class="qrcode-fallback-icon">📷</div>
           <div>二维码加载失败</div>
           <div class="qrcode-fallback-sub">请稍后重试或联系管理员</div>
         </div>
       </div>
-      <div class="qrcode-shift" id="qrcodeShift"></div>
-      <div class="qrcode-tip">长按或扫描二维码，添加对应班次客服</div>
+      <div class="qrcode-tip">长按或扫描二维码，进入接待群</div>
     </div>
   </div>
 
@@ -883,35 +882,21 @@
   </footer>
 
   <script>
-    // ===== 客服微信二维码（按时间段分发）=====
-    const SHIFT_QRCODES = {
-      "早班": { img: "./kefu/early.png", label: "早班客服（00:00-08:00）" },
-      "白班": { img: "./kefu/day.png", label: "白班客服（08:00-16:00）" },
-      "晚班": { img: "./kefu/night.png", label: "晚班客服（16:00-24:00）" }
-    };
-
-    function getBookingInfo() {
-      const h = new Date().getHours();
-      if (h >= 0 && h < 8)  return { shift: "早班", ...SHIFT_QRCODES["早班"] };
-      if (h >= 8 && h < 16) return { shift: "白班", ...SHIFT_QRCODES["白班"] };
-      return { shift: "晚班", ...SHIFT_QRCODES["晚班"] };
-    }
+    // ===== 接待群二维码 =====
+    const RECEPTION_GROUP_QRCODE = "./kefu/jiedai.jpg";
 
     function openQrcodeModal() {
-      const info = getBookingInfo();
       const overlay = document.getElementById("qrcodeOverlay");
       const img = document.getElementById("qrcodeImg");
       const fallback = document.getElementById("qrcodeFallback");
-      const shiftLabel = document.getElementById("qrcodeShift");
-      img.src = info.img;
-      img.alt = info.label;
+      img.src = RECEPTION_GROUP_QRCODE;
+      img.alt = "接待群二维码";
       img.style.display = "block";
       fallback.style.display = "none";
       img.onerror = function() {
         this.style.display = "none";
         fallback.style.display = "flex";
       };
-      shiftLabel.textContent = info.label;
       overlay.classList.add("show");
     }
 

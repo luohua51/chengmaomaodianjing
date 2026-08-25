@@ -2219,17 +2219,16 @@
   <div class="modal-overlay" id="qrcodeOverlay">
     <div class="qrcode-modal">
       <button class="modal-close" id="qrcodeClose">×</button>
-      <div class="qrcode-title">请添加客服微信</div>
+      <div class="qrcode-title">扫码进入接待群</div>
       <div class="qrcode-img-wrap">
-        <img id="qrcodeImg" src="" alt="客服二维码" />
+        <img id="qrcodeImg" src="" alt="接待群二维码" />
         <div class="qrcode-fallback" id="qrcodeFallback">
           <div class="qrcode-fallback-icon">📷</div>
           <div>二维码加载失败</div>
           <div class="qrcode-fallback-sub">请稍后重试或联系管理员</div>
         </div>
       </div>
-      <div class="qrcode-shift" id="qrcodeShift"></div>
-      <div class="qrcode-tip">长按或扫描二维码，添加对应班次客服</div>
+      <div class="qrcode-tip">长按或扫描二维码，进入接待群</div>
     </div>
   </div>
 
@@ -2248,42 +2247,22 @@
   <!-- Swiper JS（CDN）-->
   <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
   <script>
-    // ===== 客服微信二维码（按时间段分发）=====
-    // 时段划分（8 小时一轮）：
-    //   早班 00:00 - 08:00  →  kefu_early.png
-    //   白班 08:00 - 16:00  →  kefu_day.png
-    //   晚班 16:00 - 24:00  →  kefu_night.png
-    // 三张二维码图片放在项目根目录，命名如下；如需换路径只改这里即可。
-    const SHIFT_QRCODES = {
-      "早班": { img: "./kefu/early.png", label: "早班客服（00:00-08:00）" },
-      "白班": { img: "./kefu/day.png", label: "白班客服（08:00-16:00）" },
-      "晚班": { img: "./kefu/night.png", label: "晚班客服（16:00-24:00）" }
-    };
+    // ===== 接待群二维码 =====
+    const RECEPTION_GROUP_QRCODE = "./kefu/jiedai.jpg";
 
-    // 根据当前时间返回对应班次信息 { shift, img, label }
-    function getBookingInfo() {
-      const h = new Date().getHours();
-      if (h >= 0 && h < 8)  return { shift: "早班", ...SHIFT_QRCODES["早班"] };
-      if (h >= 8 && h < 16) return { shift: "白班", ...SHIFT_QRCODES["白班"] };
-      return { shift: "晚班", ...SHIFT_QRCODES["晚班"] };
-    }
-
-    // 打开客服二维码弹窗（仅显示二维码，由"复制并联系客服"按钮触发）
+    // 打开接待群二维码弹窗
     function openQrcodeModal() {
-      const info = getBookingInfo();
       const overlay = document.getElementById("qrcodeOverlay");
       const img = document.getElementById("qrcodeImg");
       const fallback = document.getElementById("qrcodeFallback");
-      const shiftLabel = document.getElementById("qrcodeShift");
-      img.src = info.img;
-      img.alt = info.label;
+      img.src = RECEPTION_GROUP_QRCODE;
+      img.alt = "接待群二维码";
       img.style.display = "block";
       fallback.style.display = "none";
       img.onerror = function() {
         this.style.display = "none";
         fallback.style.display = "flex";
       };
-      shiftLabel.textContent = info.label;
       overlay.classList.add("show");
     }
 
