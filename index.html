@@ -135,11 +135,16 @@
       background-clip: text;
       -webkit-text-fill-color: transparent;
       letter-spacing: 0.04rem;
-      /* 白色描边，确保浮在背景图上可读 */
       text-shadow:
         0 0 2px rgba(255,255,255,0.9),
         0 1px 3px rgba(0,0,0,0.4),
         0 0 8px rgba(0,0,0,0.3);
+    }
+
+    .navbar .nav-actions {
+      display: flex;
+      align-items: center;
+      gap: 0.8rem;
     }
 
     .navbar .nav-slogan {
@@ -148,11 +153,51 @@
       font-weight: 600;
       padding: 0.3rem 0.85rem;
       background: rgba(0,0,0,0.3);
-      color: #fff;
       backdrop-filter: blur(6px);
       -webkit-backdrop-filter: blur(6px);
       border: 1px solid rgba(255,255,255,0.25);
       border-radius: 999px;
+    }
+
+    .navbar .login-link {
+      color: #fff;
+      font-size: 0.8rem;
+      font-weight: 600;
+      padding: 0.3rem 0.8rem;
+      border-radius: 999px;
+      border: 1px solid rgba(255,255,255,0.25);
+      backdrop-filter: blur(4px);
+      -webkit-backdrop-filter: blur(4px);
+      transition: var(--transition);
+      text-decoration: none;
+      display: inline-flex;
+      align-items: center;
+      gap: 0.3rem;
+    }
+
+    .navbar .login-link:hover {
+      background: rgba(255,122,0,0.7);
+      border-color: rgba(255,255,255,0.6);
+      transform: translateY(-1px);
+    }
+
+    .navbar .login-link.primary {
+      background: rgba(255,122,0,0.8);
+      border-color: rgba(255,255,255,0.3);
+    }
+
+    .navbar .login-link.primary:hover {
+      background: rgba(255,122,0,1);
+    }
+
+    @media (max-width: 768px) {
+      .navbar .nav-slogan {
+        display: none;
+      }
+      .navbar .login-link {
+        font-size: 0.7rem;
+        padding: 0.2rem 0.6rem;
+      }
     }
 
     /* ===== 主容器 ===== */
@@ -2063,7 +2108,11 @@
       <img src="./logo.png" alt="橙猫猫电竞 Logo" onerror="this.style.display='none'" />
       <span class="brand-name">橙猫猫电竞</span>
     </div>
-    <span class="nav-slogan">专业陪玩 · 快乐上分</span>
+    <div class="nav-actions">
+      <span class="nav-slogan">专业陪玩 · 快乐上分</span>
+      <a href="https://pw.ocat.fun" target="_blank" class="login-link primary">🔐 陪玩登录</a>
+      <a href="https://vip.ocat.fun" target="_blank" class="login-link">👤 会员登录</a>
+    </div>
   </nav>
 
   <!-- 全屏滑动 PPT：4 个游戏专区页 -->
