@@ -4,6 +4,8 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>优质陪玩展示 · 橙猫猫电竞</title>
+  <!-- 引入 Supabase JS SDK -->
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
   <style>
     /* ===== 基础变量 ===== */
     :root {
@@ -881,8 +883,13 @@
     </div>
   </footer>
 
-  <script src="user.js"></script>
   <script>
+    // ============================================================
+    //   Supabase 配置（已根据你的项目正确填写）
+    // ============================================================
+    const SUPABASE_URL = 'https://xqtepnlmgtbvlhbvraga.supabase.co';
+    const SUPABASE_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InhxdGVwbmxtZ3RidmxoYnZyYWdhIiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODg5MzUwMDAsImV4cCI6MjEwNDUxMTAwMH0.7aIcOi0f2kWQaz9uF24iomkpgZyvU-V9HG9lx1weYaM';
+    const supabaseClient = window.supabase.createClient(SUPABASE_URL, SUPABASE_KEY);
     // ===== 接待群二维码 =====
     const RECEPTION_GROUP_QRCODE = "./kefu/jiedai.jpg";
 
@@ -1003,10 +1010,10 @@
       return idx === -1 ? TIER_ORDER.length : idx;
     }
 
-    // ===== 陪玩数据已抽离至 user.js，由全局变量 players 提供 =====
-    // 综合人气分 = 上周接单量 × (好评率 / 100)，用于同等级内的二级排序
-    // 详见 user.js 顶部注释
-    // 综合分越高越靠前（仅在相同等级内作为二级排序依据）
+    // ===== 陪玩数据（从 Supabase 加载）=====
+    let players = [];
+
+    // ===== 综合人气分 = 上周接单量 × (好评率 / 100) =====
     function popularityScore(p) {
       const orders = p.weeklyOrders || 0;
       const rating = p.rating || 0;
@@ -1058,8 +1065,6 @@
     }
 
     // ===== 排序方式 =====
-    // sortMode: "tier"   = 等级优先（明星>魔王>金牌>技术>娱乐），同级内按综合人气分降序
-    //           "hot"    = 人气优先（综合人气分降序，忽略等级）
     let sortMode = "tier";
 
     // ===== 渲染卡片到容器 =====
@@ -1069,13 +1074,10 @@
         container.innerHTML = '<div class="empty-state">暂无该专区陪玩</div>';
         return;
       }
-      // 排序：等级优先模式先按等级分组，组内按综合人气分降序
-      //       人气优先模式直接按综合人气分降序
       list = [...list].sort((a, b) => {
         if (sortMode === "hot") {
           return popularityScore(b) - popularityScore(a);
         }
-        // tier 模式：先比等级，等级相同再比综合人气分
         const tr = tierRank(a.tier) - tierRank(b.tier);
         if (tr !== 0) return tr;
         return popularityScore(b) - popularityScore(a);
@@ -1123,7 +1125,6 @@
       const modalTime = document.getElementById("modalTime");
       if (modalTime) modalTime.textContent = p.availableTime || "时间未定，请咨询客服";
 
-      // 人气数据：上周接单量 + 好评率 + 综合人气分
       const modalStats = document.getElementById("modalStats");
       if (modalStats) {
         const score = popularityScore(p).toFixed(1);
@@ -1181,9 +1182,8 @@
     });
 
     // ============================================================
-    //   页面初始化：读取 URL 参数 ?game=xxx 自动筛选对应专区
+    //   页面初始化：从 Supabase 加载数据 + URL 参数筛选
     // ============================================================
-    // 支持的游戏专区列表（与 index.html 的 4 个专区对应）
     const GAME_SECTIONS = ["无畏契约", "永劫无间", "三角洲行动", "steam热门游戏"];
 
     function getQueryParam(name) {
@@ -1201,11 +1201,9 @@
       const sectionCount = document.getElementById("sectionCount");
       const sectionLogo = document.getElementById("sectionLogo");
 
-      // 筛选
       const list = (game === "全部") ? players : players.filter(p => p.games.includes(game));
       renderCards(list, cardsGrid);
 
-      // 更新专区标题
       if (game === "全部") {
         sectionTitle.textContent = "优质陪玩展示";
         sectionSub.textContent = "为你精选优质陪玩搭子";
@@ -1223,12 +1221,10 @@
       }
       sectionCount.textContent = `${list.length} 位`;
 
-      // 更新筛选条高亮
       document.querySelectorAll(".filter-chip").forEach(chip => {
         chip.classList.toggle("active", chip.dataset.game === game);
       });
 
-      // 同步 URL（方便分享/刷新保留筛选）
       const url = new URL(window.location.href);
       if (game === "全部") {
         url.searchParams.delete("game");
@@ -1249,7 +1245,6 @@
       });
     }
 
-    // ===== 切换排序方式 =====
     function setSortMode(mode) {
       sortMode = mode;
       document.querySelectorAll(".sort-chip").forEach(chip => {
@@ -1258,17 +1253,73 @@
       applyFilter(currentGame);
     }
 
+    // ===== 从 Supabase 加载数据（修复了 JSON 字符串解析）=====
+    async function loadPlayers() {
+      console.log('🔄 开始加载陪玩数据...');
+      console.log('🔗 Supabase URL:', SUPABASE_URL);
+
+      try {
+        // 使用 supabaseClient 代替之前的 supabase
+        const { data, error } = await supabaseClient
+          .from('players')
+          .select('*');
+
+        if (error) {
+          console.error('❌ Supabase 查询失败:', error);
+          players = [];
+        } else {
+          console.log('✅ 原始数据条数:', data ? data.length : 0);
+
+          // 🔧 关键修复：解析 JSON 字符串为数组
+          const parseArray = (value) => {
+            if (Array.isArray(value)) return value;
+            if (typeof value === 'string' && value.trim().startsWith('[')) {
+              try { return JSON.parse(value); } catch (e) { return []; }
+            }
+            return [];
+          };
+
+          players = (data || []).map(row => ({
+            id: row.id,
+            name: row.name,
+            avatar: row.avatar || '',
+            tier: row.tier || '娱乐',
+            games: parseArray(row.games),
+            styles: parseArray(row.style),       // 数据库列名是 'style'
+            orders: parseArray(row.orders),
+            signature: row.signature || '专业陪玩，快乐上分！',
+            availableTime: row.available_time || '时间未定',
+            description: row.description || '暂无介绍',
+            audio: row.audio || '',
+            weeklyOrders: row.weekly_orders || 0,
+            rating: row.rating || 100
+          }));
+
+          console.log('✅ 映射后数据条数:', players.length);
+          if (players.length > 0) {
+            console.log('📋 第一条映射后数据:', players[0]);
+          }
+        }
+
+        applyFilter(currentGame);
+      } catch (err) {
+        console.error('💥 加载陪玩数据异常:', err);
+        players = [];
+        applyFilter(currentGame);
+      }
+    }
+
     // ===== 启动 =====
-    (function init() {
-      // 从 URL 读取游戏参数，自动筛选对应专区陪玩
+    (async function init() {
       const gameParam = getQueryParam("game");
       currentGame = (gameParam && GAME_SECTIONS.includes(gameParam)) ? gameParam : "全部";
       renderFilterBar();
-      // 排序按钮事件
+
       document.querySelectorAll(".sort-chip").forEach(chip => {
         chip.addEventListener("click", () => setSortMode(chip.dataset.sort));
       });
-      applyFilter(currentGame);
+
+      await loadPlayers();
     })();
   </script>
 </body>
